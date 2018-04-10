@@ -1,0 +1,14 @@
+language: java
+
+jdk: 
+    - oraclejdk8
+
+build:
+    ci:
+        # A bunch of setup stuff first
+        - adduser --disabled-password --gecos "" ciuser
+        - CIUSER_BUILD_DIR=/home/ciuser/build
+        - cp -r $SHIPPABLE_BUILD_DIR $CIUSER_BUILD_DIR
+        - chown -R ciuser:ciuser $CIUSER_BUILD_DIR
+          # Then, build running all tests but as a non-root user because of Postgres 
+        - su -c "cd $CIUSER_BUILD_DIR && mvn clean install -B" ciuser

@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: prod
+  jackson:
+    serialization:
+      indent_output: true
+      write_dates_as_timestamps: false
+      write_durations_as_timestamps: false
+    deserialization:
+      accept_single_value_as_array: true
+    default-property-inclusion: non_null
+  flyway:
+    locations: classpath:uk/co/grahamcox/space/db
+management:
+  endpoint:
+    health:
+      show-details: always
+logging:
+  level: 
+    uk.co.grahamcox: DEBUG
+space:
+  database:
+    embedded: true

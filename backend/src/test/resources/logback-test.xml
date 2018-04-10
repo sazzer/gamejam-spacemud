@@ -1,0 +1,22 @@
+<configuration>
+    <jmxConfigurator />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.apache.http" level="INFO" />
+    <logger name="org.eclipse.jetty" level="INFO" />
+    <logger name="org.apache.jasper" level="INFO" />
+    <logger name="org.apache.tomcat" level="INFO" />
+    <logger name="org.hibernate.validator" level="INFO" />
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
