@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import uk.co.grahamcox.space.HomeController
+import uk.co.grahamcox.space.websocket.WebSocketConfig
 import java.time.Clock
 import java.time.ZoneId
 
@@ -14,7 +15,8 @@ import java.time.ZoneId
 @Configuration
 @Import(
         DatabaseConfig::class,
-        WebMvcConfig::class
+        WebMvcConfig::class,
+        WebSocketConfig::class
 )
 class ApplicationConfig {
     /**
