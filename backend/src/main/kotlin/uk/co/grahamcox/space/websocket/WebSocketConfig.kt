@@ -15,6 +15,7 @@ class WebSocketConfig : WebSocketConfigurer {
      * Configure the WebSocket handlers
      */
     override fun registerWebSocketHandlers(registry: WebSocketHandlerRegistry) {
-        registry.addHandler(WebSocketHandler(), "/ws")
+        registry.addHandler(WebSocketHandler(), "/ws/**")
+                .setAllowedOrigins("*")
     }
 }
