@@ -9,6 +9,7 @@ import store from './redux/redux'
 import registerServiceWorker from './registerServiceWorker';
 import { UI } from "./ui";
 import i18n from './i18n';
+import { httpClient } from "./api";
 
 /**
  * The contents of the app, wrapped in the translations layer
@@ -31,3 +32,6 @@ const AppWrapper = () => (
 
 ReactDOM.render(<AppWrapper />, document.getElementById('root'));
 registerServiceWorker();
+
+httpClient.get('/')
+    .then(console.log);
