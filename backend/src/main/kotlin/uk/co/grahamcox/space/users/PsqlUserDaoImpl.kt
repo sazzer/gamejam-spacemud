@@ -28,7 +28,7 @@ class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemp
             jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = :userId::uuid",
                     mapOf(
                             "userId" to id.id
-                    )) { rs, _ -> parseUser(rs) }
+                    )) { rs, _ -> parseUser(rs) }!!
         } catch (e: EmptyResultDataAccessException) {
             LOG.warn("No user found with ID {}", id)
             throw ResourceNotFoundException(id)
