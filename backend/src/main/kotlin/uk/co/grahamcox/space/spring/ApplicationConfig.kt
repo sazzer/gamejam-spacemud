@@ -4,7 +4,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
-import uk.co.grahamcox.space.HomeController
+import uk.co.grahamcox.space.home.HomeController
 import uk.co.grahamcox.space.websocket.WebSocketConfig
 import java.time.Clock
 import java.time.ZoneId
