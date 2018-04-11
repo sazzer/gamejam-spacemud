@@ -4,7 +4,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import uk.co.grahamcox.space.dao.ResourceNotFoundException
+import uk.co.grahamcox.space.model.Identity
 import uk.co.grahamcox.space.model.Resource
+import java.sql.ResultSet
 import java.time.Clock
 
 /**
@@ -26,9 +28,7 @@ class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemp
             jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = :userId::uuid",
                     mapOf(
                             "userId" to id.id
-                    )) { _, _ ->
-                TODO("Not implemented")
-            }
+                    )) { rs, _ -> parseUser(rs) }
         } catch (e: EmptyResultDataAccessException) {
             LOG.warn("No user found with ID {}", id)
             throw ResourceNotFoundException(id)
@@ -51,5 +51,25 @@ class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemp
      */
     override fun create(user: UserData): Resource<UserId, UserData> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    /**
+     * Parse the user details from the current row of the given resultset
+     */
+    private fun parseUser(rs: ResultSet) : Resource<UserId, UserData> {
+        val identity = Identity(
+                id = UserId(rs.getString("user_id")),
+                version = rs.getString("version"),
+                created = rs.getTimestamp("created").toInstant(),
+                updated = rs.getTimestamp("updated").toInstant()
+        )
+
+        val data = UserData(
+                email = rs.getString("email"),
+                displayName = rs.getString("display_name"),
+                password = rs.getString("password")
+        )
+
+        return Resource(identity, data)
     }
 }
