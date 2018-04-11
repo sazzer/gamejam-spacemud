@@ -41,7 +41,16 @@ class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemp
      * @return the email address
      */
     override fun getByEmail(email: String): Resource<UserId, UserData>? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        LOG.debug("Loading user with Email: {}", email)
+        return try {
+            jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = :email",
+                    mapOf(
+                            "email" to email
+                    )) { rs, _ -> parseUser(rs) }
+        } catch (e: EmptyResultDataAccessException) {
+            LOG.warn("No user found with Email {}", email)
+            null
+        }
     }
 
     /**
