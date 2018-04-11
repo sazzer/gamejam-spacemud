@@ -26,7 +26,6 @@ import uk.co.grahamcox.space.spring.database.DatabaseCleanerTestExecutionListene
         listeners = [(DatabaseCleanerTestExecutionListener::class)],
                 mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
 )
-
 class SpringTestBase {
     /** Means to make HTTP Requests */
     @Autowired

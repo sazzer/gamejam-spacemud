@@ -1,20 +1,38 @@
 package uk.co.grahamcox.space.users
 
+import org.slf4j.LoggerFactory
+import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
+import uk.co.grahamcox.space.dao.ResourceNotFoundException
 import uk.co.grahamcox.space.model.Resource
 import java.time.Clock
 
 /**
  * Postgres JDBC Implementation of the User DAO
  */
-class PsqlUserDaoImpl(clock: Clock, jdbcTemplate: NamedParameterJdbcTemplate) : UserDao {
+class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemplate) : UserDao {
+    companion object {
+        /** The logger to use */
+        private val LOG = LoggerFactory.getLogger(PsqlUserDaoImpl::class.java)
+    }
     /**
      * Get the User by their unique ID
      * @param id The ID of the user
      * @return the user
      */
     override fun getById(id: UserId): Resource<UserId, UserData> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        LOG.debug("Loading user with ID: {}", id)
+        return try {
+            jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = :userId::uuid",
+                    mapOf(
+                            "userId" to id.id
+                    )) { _, _ ->
+                TODO("Not implemented")
+            }
+        } catch (e: EmptyResultDataAccessException) {
+            LOG.warn("No user found with ID {}", id)
+            throw ResourceNotFoundException(id)
+        }
     }
 
     /**
