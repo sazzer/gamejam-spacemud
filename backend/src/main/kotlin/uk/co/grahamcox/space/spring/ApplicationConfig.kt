@@ -1,5 +1,6 @@
 package uk.co.grahamcox.space.spring
 
+import org.apache.catalina.startup.UserConfig
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +17,8 @@ import java.time.ZoneId
 @Import(
         DatabaseConfig::class,
         WebMvcConfig::class,
-        WebSocketConfig::class
+        WebSocketConfig::class,
+        UserConfig::class
 )
 class ApplicationConfig {
     /**
