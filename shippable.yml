@@ -3,6 +3,9 @@ language: java
 jdk: 
     - oraclejdk8
 
+env:
+  - secure: fCRl041j9iKovNemz8qww31bilqfhhZAtf10G3lg+vqo8sDgkJDrFzojRDdmEgMPRbse1K7mLCOtHcUHuA7+B94pZTZbc6KR+iKbZTNP1sqduOWoe13DPROQo/hI3LaGRcRJAV28+ZnXojMAsDmE2J/fZ7RkfhgLLC7zeH2IlgTgM4LJ2k1OPdv4Q8suPMbzpDeY4CCEUEwvGG9bmsar5s5B4qEDMjI3VqFDdEnSTyPD+B/VIT+gxJaerqhUeHgs5/FK+VHZY9ogg13G9V6qn0Y7M4rnIvH2cvm0wIOxo5NFhCUKUy32ca1vX4DkyqxBkeiY3NGfgd4DbhyLoONTPw==
+
 build:
     ci:
         # A bunch of setup stuff first
@@ -12,3 +15,8 @@ build:
         - chown -R ciuser:ciuser $CIUSER_BUILD_DIR
           # Then, build running all tests but as a non-root user because of Postgres 
         - su -c "cd $CIUSER_BUILD_DIR && mvn clean install -B" ciuser
+    post_ci:
+        - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+        - heroku container:login
+        - mvn install -DskipTests -B -Pdocker -Ddocker.image=registry.heroku.com/spacemud/web
+        - if [ "$BRANCH" == "master" ]; then docker push registry.heroku.com/spacemud/web:1.0-SNAPSHOT; fi
