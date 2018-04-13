@@ -1,6 +1,7 @@
 package uk.co.grahamcox.space.users
 
 import org.slf4j.LoggerFactory
+import org.springframework.dao.DuplicateKeyException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import uk.co.grahamcox.space.dao.ResourceNotFoundException
@@ -60,30 +61,37 @@ class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemp
      * @return the user
      */
     override fun create(user: UserData): Resource<UserId, UserData> {
+        LOG.debug("Creating a new user: {}", user)
+
         val newId = UUID.randomUUID().toString()
         val version = UUID.randomUUID().toString()
         val now = clock.instant()
 
-        jdbcTemplate.update("INSERT INTO users(user_id, version, created, updated, email, display_name, password) " +
-                "VALUES (:userId::uuid, :version::uuid, :now, :now, :email, :displayName, :password)",
-                mapOf(
-                        "userId" to newId,
-                        "version" to version,
-                        "now" to Date.from(now),
-                        "email" to user.email,
-                        "displayName" to user.displayName,
-                        "password" to user.password
-                ))
+        try {
+            jdbcTemplate.update("INSERT INTO users(user_id, version, created, updated, email, display_name, password) " +
+                    "VALUES (:userId::uuid, :version::uuid, :now, :now, :email, :displayName, :password)",
+                    mapOf(
+                            "userId" to newId,
+                            "version" to version,
+                            "now" to Date.from(now),
+                            "email" to user.email,
+                            "displayName" to user.displayName,
+                            "password" to user.password
+                    ))
 
-        return Resource(
-                identity = Identity(
-                        id = UserId(newId),
-                        version = version,
-                        created = now,
-                        updated = now
-                ),
-                data = user
-        )
+            return Resource(
+                    identity = Identity(
+                            id = UserId(newId),
+                            version = version,
+                            created = now,
+                            updated = now
+                    ),
+                    data = user
+            )
+        } catch (e: DuplicateKeyException) {
+            LOG.warn("Duplicate key exception creating new user", e)
+            throw DuplicateUserException()
+        }
     }
 
     /**

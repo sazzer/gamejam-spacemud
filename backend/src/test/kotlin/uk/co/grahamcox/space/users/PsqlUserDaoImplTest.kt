@@ -101,4 +101,18 @@ internal class PsqlUserDaoImplTest : SpringTestBase() {
 
         Assertions.assertEquals(createdUser, retrievedUser)
     }
+
+    /**
+     * Test creating a new user with a duplicate email address
+     */
+    @Test
+    fun createUserDuplicateEmail() {
+        Assertions.assertThrows(DuplicateUserException::class.java) {
+            testSubject.create(UserData(
+                    email = "test@user.example.com",
+                    displayName = "New User",
+                    password = "SomeEncodedPassword"
+            ))
+        }
+    }
 }
