@@ -17,4 +17,10 @@ class UserConfig {
      */
     @Bean
     fun userDao(clock: Clock, jdbcTemplate: NamedParameterJdbcTemplate) = PsqlUserDaoImpl(clock, jdbcTemplate)
+
+    /**
+     * The Users Controller
+     */
+    @Bean
+    fun userController() = UsersController()
 }
