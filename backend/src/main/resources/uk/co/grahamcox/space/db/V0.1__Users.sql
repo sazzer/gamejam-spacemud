@@ -5,5 +5,5 @@ CREATE TABLE Users(
   updated TIMESTAMP WITH TIME ZONE NOT NULL,
   email VARCHAR(260) NOT NULL UNIQUE,
   display_name VARCHAR(100) NOT NULL,
-  password CHAR(60) NOT NULL
+  password VARCHAR(60) NOT NULL
 );

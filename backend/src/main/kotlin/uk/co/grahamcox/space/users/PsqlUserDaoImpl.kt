@@ -8,6 +8,7 @@ import uk.co.grahamcox.space.model.Identity
 import uk.co.grahamcox.space.model.Resource
 import java.sql.ResultSet
 import java.time.Clock
+import java.util.*
 
 /**
  * Postgres JDBC Implementation of the User DAO
@@ -59,7 +60,30 @@ class PsqlUserDaoImpl(val clock: Clock, val jdbcTemplate: NamedParameterJdbcTemp
      * @return the user
      */
     override fun create(user: UserData): Resource<UserId, UserData> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val newId = UUID.randomUUID().toString()
+        val version = UUID.randomUUID().toString()
+        val now = clock.instant()
+
+        jdbcTemplate.update("INSERT INTO users(user_id, version, created, updated, email, display_name, password) " +
+                "VALUES (:userId::uuid, :version::uuid, :now, :now, :email, :displayName, :password)",
+                mapOf(
+                        "userId" to newId,
+                        "version" to version,
+                        "now" to Date.from(now),
+                        "email" to user.email,
+                        "displayName" to user.displayName,
+                        "password" to user.password
+                ))
+
+        return Resource(
+                identity = Identity(
+                        id = UserId(newId),
+                        version = version,
+                        created = now,
+                        updated = now
+                ),
+                data = user
+        )
     }
 
     /**

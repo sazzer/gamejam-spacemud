@@ -79,4 +79,26 @@ internal class PsqlUserDaoImplTest : SpringTestBase() {
                 Executable { Assertions.assertEquals("\$2a\$10\$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy", user.data.password) }
         )
     }
+
+    /**
+     * Test creating a new user successfully
+     */
+    @Test
+    fun createUserSuccess() {
+        val createdUser = testSubject.create(UserData(
+                email = "new@example.com",
+                displayName = "New User",
+                password = "SomeEncodedPassword"
+        ))
+
+        Assertions.assertAll(
+                Executable { Assertions.assertEquals("new@example.com", createdUser.data.email) },
+                Executable { Assertions.assertEquals("New User", createdUser.data.displayName) },
+                Executable { Assertions.assertEquals("SomeEncodedPassword", createdUser.data.password) }
+        )
+
+        val retrievedUser = testSubject.getById(createdUser.identity.id)
+
+        Assertions.assertEquals(createdUser, retrievedUser)
+    }
 }
