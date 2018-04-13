@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.jdbc.Sql
 import uk.co.grahamcox.space.dao.ResourceNotFoundException
 import uk.co.grahamcox.space.spring.SpringTestBase
+import uk.co.grahamcox.space.users.dao.DuplicateUserException
+import uk.co.grahamcox.space.users.dao.UserDao
 import java.time.Instant
 
 /**

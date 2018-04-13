@@ -1,6 +1,8 @@
-package uk.co.grahamcox.space.users
+package uk.co.grahamcox.space.users.dao
 
 import uk.co.grahamcox.space.model.Resource
+import uk.co.grahamcox.space.users.UserData
+import uk.co.grahamcox.space.users.UserId
 
 /**
  * DAO for working with User records

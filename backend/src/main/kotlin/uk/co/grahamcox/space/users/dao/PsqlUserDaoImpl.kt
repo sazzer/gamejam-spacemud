@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.users
+package uk.co.grahamcox.space.users.dao
 
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DuplicateKeyException
@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import uk.co.grahamcox.space.dao.ResourceNotFoundException
 import uk.co.grahamcox.space.model.Identity
 import uk.co.grahamcox.space.model.Resource
+import uk.co.grahamcox.space.users.UserData
+import uk.co.grahamcox.space.users.UserId
 import java.sql.ResultSet
 import java.time.Clock
 import java.util.*

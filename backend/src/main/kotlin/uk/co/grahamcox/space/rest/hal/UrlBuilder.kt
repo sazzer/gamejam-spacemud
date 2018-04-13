@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.hal
+package uk.co.grahamcox.space.rest.hal
 
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
 import kotlin.reflect.KFunction

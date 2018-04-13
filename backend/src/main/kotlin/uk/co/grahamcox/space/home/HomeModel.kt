@@ -1,7 +1,7 @@
 package uk.co.grahamcox.space.home
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import uk.co.grahamcox.space.hal.Link
+import uk.co.grahamcox.space.rest.hal.Link
 
 /**
  * Links in the Home document

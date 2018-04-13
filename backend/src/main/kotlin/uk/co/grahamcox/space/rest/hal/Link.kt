@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.hal
+package uk.co.grahamcox.space.rest.hal
 
 import java.net.URI
 
