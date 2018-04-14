@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import uk.co.grahamcox.space.users.dao.PsqlUserDaoImpl
+import uk.co.grahamcox.space.users.dao.UserDao
+import uk.co.grahamcox.space.users.rest.UserTranslator
 import uk.co.grahamcox.space.users.rest.UsersController
 import java.time.Clock
 
@@ -22,5 +24,5 @@ class UserConfig {
      * The Users Controller
      */
     @Bean
-    fun userController() = UsersController()
+    fun userController(userDao: UserDao) = UsersController(userDao, UserTranslator())
 }
