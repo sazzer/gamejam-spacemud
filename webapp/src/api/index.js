@@ -1,2 +1,2 @@
 export { httpClient } from './http';
-export { ws } from './websocket';
+//export { ws } from './websocket';
