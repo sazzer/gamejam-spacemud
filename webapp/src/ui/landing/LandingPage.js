@@ -11,7 +11,7 @@ export function LandingPage() {
                     <Grid.Row>
                         <Grid.Column width={12}>
                             <p>
-                                <img src={image} width="100%" />
+                                <img src={image} width="100%" alt="" />
                             </p>
                             <Interpolate i18nKey="page.landing" parent="p"/>
                         </Grid.Column>
