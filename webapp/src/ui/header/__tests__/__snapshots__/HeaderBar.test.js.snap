@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering renders the expected HTML 1`] = `
+<Menu
+  attached={true}
+  borderless={true}
+  className="spacemud_header"
+>
+  <Item
+    className="header"
+  >
+    <Interpolate
+      className=""
+      i18nKey="page.header"
+    />
+  </Item>
+  <Menu
+    className="right"
+    compact={true}
+    inverted={true}
+  />
+</Menu>
+`;
