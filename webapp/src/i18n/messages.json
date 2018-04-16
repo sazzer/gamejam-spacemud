@@ -8,7 +8,10 @@
       "label": "Login / Register",
       "submit": "Login / Register",
       "email": {
-        "label": "Email Address"
+        "label": "Email Address",
+        "validation": {
+          "missing": "Email Address was not provided"
+        }
       }
     },
     "login": {
