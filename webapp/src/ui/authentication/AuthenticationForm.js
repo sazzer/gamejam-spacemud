@@ -1,5 +1,5 @@
 import React from 'react';
-import { StartFormContainer } from "./StartForm";
+import { StartFormContainer } from "./StartFormContainer";
 import { LoginForm } from "./LoginForm";
 
 /** Form state for when we haven't started anything yet */
