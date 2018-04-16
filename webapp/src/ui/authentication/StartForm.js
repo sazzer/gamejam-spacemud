@@ -1,9 +1,17 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Button, Form, Header, Label} from 'semantic-ui-react';
 import {Interpolate} from 'react-i18next';
 
-export function StartForm({loading, email, missingEmailError, onEmailChanged, onSubmit}) {
+type Props = {
+    loading: boolean;
+    email: string;
+    missingEmailError: boolean;
+    onEmailChanged: (string) => void,
+    onSubmit: (any) => void
+}
+export function StartForm({loading, email, missingEmailError, onEmailChanged, onSubmit}: Props) {
     let missingEmailErrorMessage;
 
     if (missingEmailError) {
@@ -38,12 +46,3 @@ export function StartForm({loading, email, missingEmailError, onEmailChanged, on
         </Form>
     );
 }
-
-StartForm.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    email: PropTypes.string.isRequired,
-    missingEmailError: PropTypes.bool.isRequired,
-    onEmailChanged: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
-};
-
