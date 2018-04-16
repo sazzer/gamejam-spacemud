@@ -1,12 +1,23 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
-import { StartForm } from './StartForm';
+import {StartForm} from './StartForm';
+
+type Props = {
+    loading: boolean,
+    onSubmit: (string) => void
+}
+
+type State = {
+    email: string,
+    missingEmailError: boolean
+}
 
 /**
  * Form for when we are starting authentication
  * @constructor
  */
-export class StartFormContainer extends React.Component {
+export class StartFormContainer extends React.Component<Props, State> {
     /** Default state for the component */
     state = {
         email: "",
@@ -35,9 +46,9 @@ export class StartFormContainer extends React.Component {
      * Handler for when the email address is changed
      * @private
      */
-    _onEmailChangedHandler(e) {
+    _onEmailChangedHandler(email: string) {
         this.setState({
-            email: e.target.value,
+            email: email,
             missingEmailError: false
         })
     }
@@ -46,21 +57,15 @@ export class StartFormContainer extends React.Component {
      * Handler for when the form is submitted
      * @private
      */
-    _onSubmitHandler(e) {
-        e.preventDefault();
-        if (this.state.email === "") {
+    _onSubmitHandler() {
+        const { email } = this.state;
+        if (email === "") {
             this.setState({
                 missingEmailError: true
             });
         } else {
-            this.props.onSubmit(this.state.email);
+            this.props.onSubmit(email);
         }
     }
 }
-
-StartFormContainer.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    onSubmit: PropTypes.func.isRequired
-};
-
 

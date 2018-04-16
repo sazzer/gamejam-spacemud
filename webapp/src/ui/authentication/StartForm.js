@@ -11,6 +11,7 @@ type Props = {
     onEmailChanged: (string) => void,
     onSubmit: (any) => void
 }
+
 export function StartForm({loading, email, missingEmailError, onEmailChanged, onSubmit}: Props) {
     let missingEmailErrorMessage;
 
@@ -22,8 +23,17 @@ export function StartForm({loading, email, missingEmailError, onEmailChanged, on
         );
     }
 
+    const onSubmitWrapper = (e) => {
+        e.preventDefault();
+        onSubmit();
+    };
+
+    const onEmailChangedWrapper = (e) => {
+        onEmailChanged(e.target.value);
+    };
+
     return (
-        <Form action="#" onSubmit={onSubmit}>
+        <Form action="#" onSubmit={onSubmitWrapper}>
             <Header dividing as="h4">
                 <Interpolate i18nKey="authentication.start.label" />
             </Header>
@@ -37,7 +47,7 @@ export function StartForm({loading, email, missingEmailError, onEmailChanged, on
                        placeholder=""
                        value={email}
                        readOnly={loading}
-                       onChange={onEmailChanged} />
+                       onChange={onEmailChangedWrapper} />
                 {missingEmailErrorMessage}
             </Form.Field>
             <Button type="submit" primary loading={loading}>
