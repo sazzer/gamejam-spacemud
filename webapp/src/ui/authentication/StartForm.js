@@ -10,7 +10,8 @@ import { Interpolate } from 'react-i18next';
 export class StartForm extends React.Component {
     /** Default state for the component */
     state = {
-        email: ""
+        email: "",
+        missingEmailError: false
     };
 
     /** Pre-bound event handlers */
@@ -22,14 +23,14 @@ export class StartForm extends React.Component {
      */
     render() {
         const { loading } = this.props;
-        const { email } = this.state;
+        const { email, missingEmailError } = this.state;
 
         return (
             <Form action="#" onSubmit={this._onSubmit}>
                 <Header dividing as="h4">
                     <Interpolate i18nKey="authentication.start.label" />
                 </Header>
-                <Form.Field>
+                <Form.Field required error={missingEmailError}>
                     <label>
                         <Interpolate i18nKey="authentication.start.email.label" />
                     </label>
@@ -54,7 +55,8 @@ export class StartForm extends React.Component {
      */
     _onEmailChangedHandler(e) {
         this.setState({
-            email: e.target.value
+            email: e.target.value,
+            missingEmailError: false
         })
     }
 
@@ -64,7 +66,13 @@ export class StartForm extends React.Component {
      */
     _onSubmitHandler(e) {
         e.preventDefault();
-        this.props.onSubmit(this.state.email);
+        if (this.state.email === "") {
+            this.setState({
+                missingEmailError: true
+            });
+        } else {
+            this.props.onSubmit(this.state.email);
+        }
     }
 }
 
