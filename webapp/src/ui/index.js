@@ -1,5 +1,7 @@
 import React from 'react';
-import 'semantic-ui-css/semantic.min.css';
+import { HeaderBar } from "./header";
+import { LandingPage } from "./landing";
+import './ui.css';
 
 /**
  * The actual main application
@@ -9,6 +11,8 @@ import 'semantic-ui-css/semantic.min.css';
 export function UI() {
     return (
         <div className="ui">
+            <HeaderBar />
+            <LandingPage />
         </div>
     );
 }
