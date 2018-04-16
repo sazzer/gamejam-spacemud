@@ -10,6 +10,16 @@
       "email": {
         "label": "Email Address"
       }
+    },
+    "login": {
+      "label": "Login",
+      "submit": "Login",
+      "email": {
+        "label": "Email Address"
+      },
+      "password": {
+        "label": "Password"
+      }
     }
   }
 }
