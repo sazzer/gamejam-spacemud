@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Button, Header } from 'semantic-ui-react';
+import { Form, Button, Header, Label } from 'semantic-ui-react';
 import { Interpolate } from 'react-i18next';
 
 /**
@@ -25,6 +25,16 @@ export class StartForm extends React.Component {
         const { loading } = this.props;
         const { email, missingEmailError } = this.state;
 
+        let missingEmailErrorMessage;
+
+        if (missingEmailError) {
+            missingEmailErrorMessage = (
+                <Label basic pointing color="red">
+                    Email Address was not provided
+                </Label>
+            );
+        }
+
         return (
             <Form action="#" onSubmit={this._onSubmit}>
                 <Header dividing as="h4">
@@ -41,6 +51,7 @@ export class StartForm extends React.Component {
                            value={email}
                            readOnly={loading}
                            onChange={this._onEmailChanged} />
+                    {missingEmailErrorMessage}
                 </Form.Field>
                 <Button type="submit" primary loading={loading}>
                     <Interpolate i18nKey="authentication.start.submit" />
