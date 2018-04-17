@@ -1,11 +1,14 @@
 import React from 'react';
 import { StartFormContainer } from "./StartFormContainer";
 import { LoginFormContainer } from "./LoginFormContainer";
+import { RegisterFormContainer } from "./RegisterFormContainer";
 
 /** Form state for when we haven't started anything yet */
 const FORM_STATE_INITIAL = "initial";
 /** Form state for when we are logging in */
 const FORM_STATE_LOGIN = "login";
+/** Form state for when we are registering */
+const FORM_STATE_REGISTER = "register";
 
 /**
  * Form for Authentication, both in terms of Login and Registration
@@ -30,6 +33,8 @@ export class AuthenticationForm extends React.Component {
             formBody = <StartFormContainer loading={loading} onSubmit={this._onStartFormSubmitted} />;
         } else if (formState === FORM_STATE_LOGIN) {
             formBody = <LoginFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
+        } else if (formState === FORM_STATE_REGISTER) {
+            formBody = <RegisterFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
         }
 
         return (
@@ -51,7 +56,7 @@ export class AuthenticationForm extends React.Component {
         setTimeout(() => {
             this.setState({
                 email: email,
-                formState: FORM_STATE_LOGIN,
+                formState: FORM_STATE_REGISTER,
                 loading: false
             });
         }, 5000);

@@ -26,6 +26,32 @@
           "missing": "Password was not provided"
         }
       }
+    },
+    "register": {
+      "label": "Register",
+      "submit": "Register",
+      "email": {
+        "label": "Email Address"
+      },
+      "password": {
+        "label": "Password",
+        "validation": {
+          "missing": "Password was not provided"
+        }
+      },
+      "password2": {
+        "label": "Repeat Password",
+        "validation": {
+          "missing": "Password was not provided",
+          "different": "Passwords do not match"
+        }
+      },
+      "displayName": {
+        "label": "Screen Name",
+        "validation": {
+          "missing": "Screen Name was not provided"
+        }
+      }
     }
   }
 }
