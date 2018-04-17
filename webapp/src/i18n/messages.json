@@ -21,7 +21,10 @@
         "label": "Email Address"
       },
       "password": {
-        "label": "Password"
+        "label": "Password",
+        "validation": {
+          "missing": "Password was not provided"
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StartFormContainer } from "./StartFormContainer";
-import { LoginForm } from "./LoginForm";
+import { LoginFormContainer } from "./LoginFormContainer";
 
 /** Form state for when we haven't started anything yet */
 const FORM_STATE_INITIAL = "initial";
@@ -29,7 +29,7 @@ export class AuthenticationForm extends React.Component {
         if (formState === FORM_STATE_INITIAL) {
             formBody = <StartFormContainer loading={loading} onSubmit={this._onStartFormSubmitted} />;
         } else if (formState === FORM_STATE_LOGIN) {
-            formBody = <LoginForm loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
+            formBody = <LoginFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
         }
 
         return (
