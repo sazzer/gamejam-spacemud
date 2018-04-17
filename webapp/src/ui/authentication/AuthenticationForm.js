@@ -23,20 +23,22 @@ export class AuthenticationForm extends React.Component {
     state = {
         email: null,
         formState: FORM_STATE_INITIAL,
-        loading: false
     };
 
     _onStartFormSubmitted = this._onStartFormSubmittedHandler.bind(this);
 
     render() {
-        const { formState, email, loading } = this.state;
+        const { formState, email } = this.state;
+
+        const { userExistsModule } = this.props;
+
         let formBody;
         if (formState === FORM_STATE_INITIAL) {
-            formBody = <StartFormContainer loading={loading} onSubmit={this._onStartFormSubmitted} />;
+            formBody = <StartFormContainer loading={userExistsModule.status === 'loading'} onSubmit={this._onStartFormSubmitted} />;
         } else if (formState === FORM_STATE_LOGIN) {
-            formBody = <LoginFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
+            formBody = <LoginFormContainer loading={false} email={email} onSubmit={this._onStartFormSubmitted} />
         } else if (formState === FORM_STATE_REGISTER) {
-            formBody = <RegisterFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
+            formBody = <RegisterFormContainer loading={false} email={email} onSubmit={this._onStartFormSubmitted} />
         }
 
         return (
@@ -54,17 +56,6 @@ export class AuthenticationForm extends React.Component {
     _onStartFormSubmittedHandler(email) {
         const { userExistsModule } = this.props;
         userExistsModule.checkUserExists(email);
-
-        this.setState({
-            loading: true
-        });
-        setTimeout(() => {
-            this.setState({
-                email: email,
-                formState: FORM_STATE_REGISTER,
-                loading: false
-            });
-        }, 5000);
     }
 }
 
