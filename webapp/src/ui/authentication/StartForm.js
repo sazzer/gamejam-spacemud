@@ -1,8 +1,9 @@
 // @flow
 
 import React from 'react';
-import {Button, Form, Header, Label} from 'semantic-ui-react';
+import {Button, Form, Header} from 'semantic-ui-react';
 import {Interpolate} from 'react-i18next';
+import {Field} from '../../components/form';
 
 type Props = {
     loading: boolean;
@@ -13,23 +14,9 @@ type Props = {
 }
 
 export function StartForm({loading, email, missingEmailError, onEmailChanged, onSubmit}: Props) {
-    let missingEmailErrorMessage;
-
-    if (missingEmailError) {
-        missingEmailErrorMessage = (
-            <Label basic pointing color="red">
-                <Interpolate i18nKey="authentication.start.email.validation.missing" />
-            </Label>
-        );
-    }
-
     const onSubmitWrapper = (e) => {
         e.preventDefault();
         onSubmit();
-    };
-
-    const onEmailChangedWrapper = (e) => {
-        onEmailChanged(e.target.value);
     };
 
     return (
@@ -37,19 +24,14 @@ export function StartForm({loading, email, missingEmailError, onEmailChanged, on
             <Header dividing as="h4">
                 <Interpolate i18nKey="authentication.start.label" />
             </Header>
-            <Form.Field required error={missingEmailError}>
-                <label>
-                    <Interpolate i18nKey="authentication.start.email.label" />
-                </label>
-                <input type="email"
-                       autoFocus
-                       name="email"
-                       placeholder=""
-                       value={email}
-                       readOnly={loading}
-                       onChange={onEmailChangedWrapper} />
-                {missingEmailErrorMessage}
-            </Form.Field>
+            <Field
+                labelKey="authentication.start.email.label"
+                name="email"
+                autoFocus
+                type="email"
+                value={email}
+                errorKey={missingEmailError ? "authentication.start.email.validation.missing" : undefined}
+                onChange={onEmailChanged} />
             <Button type="submit" primary loading={loading}>
                 <Interpolate i18nKey="authentication.start.submit" />
             </Button>
