@@ -46,8 +46,14 @@ export class AuthenticationForm extends React.Component {
      */
     _onStartFormSubmittedHandler(email) {
         this.setState({
-            email: email,
-            formState: FORM_STATE_LOGIN
-        })
+            loading: true
+        });
+        setTimeout(() => {
+            this.setState({
+                email: email,
+                formState: FORM_STATE_LOGIN,
+                loading: false
+            });
+        }, 5000);
     }
 }

@@ -20,6 +20,7 @@ export function StartForm({loading, email, missingEmailError, onEmailChanged, on
                 labelKey="authentication.start.email.label"
                 name="email"
                 autoFocus
+                readOnly={loading}
                 type="email"
                 value={email}
                 errorKey={missingEmailError ? "authentication.start.email.validation.missing" : undefined}

@@ -28,6 +28,7 @@ export function LoginForm({loading, email, password, missingPasswordError, onPas
                 labelKey="authentication.login.password.label"
                 name="password"
                 autoFocus
+                readOnly={loading}
                 type="password"
                 value={password}
                 errorKey={missingPasswordError ? "authentication.login.password.validation.missing" : undefined}
