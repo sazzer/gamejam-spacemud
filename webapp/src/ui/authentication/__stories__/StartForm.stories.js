@@ -11,7 +11,7 @@ const submitAction = decorateAction([
     }
 ]);
 
-storiesOf('Authentication/StartForm', module)
+storiesOf('UI/Authentication/StartForm', module)
     .add('Ready for input', () => (
         <Segment>
             <StartForm loading={false} email="" missingEmailError={false} onEmailChanged={action('emailChanged')} onSubmit={submitAction('submit')} />

@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { Segment } from 'semantic-ui-react';
 import { LoginForm } from '../LoginForm';
 
-storiesOf('Authentication/LoginForm', module)
+storiesOf('UI/Authentication/LoginForm', module)
     .add('Ready for input', () => (
         <Segment>
             <LoginForm email="test@example.com" loading={false} onSubmit={action('submit')} />
