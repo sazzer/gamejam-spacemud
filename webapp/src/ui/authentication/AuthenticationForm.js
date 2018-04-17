@@ -1,7 +1,9 @@
 import React from 'react';
-import { StartFormContainer } from "./StartFormContainer";
-import { LoginFormContainer } from "./LoginFormContainer";
-import { RegisterFormContainer } from "./RegisterFormContainer";
+import {StartFormContainer} from "./StartFormContainer";
+import {LoginFormContainer} from "./LoginFormContainer";
+import {RegisterFormContainer} from "./RegisterFormContainer";
+import {connectStore} from 'redux-box'
+import {userExistsModule} from "../../authentication";
 
 /** Form state for when we haven't started anything yet */
 const FORM_STATE_INITIAL = "initial";
@@ -50,6 +52,9 @@ export class AuthenticationForm extends React.Component {
      * @private
      */
     _onStartFormSubmittedHandler(email) {
+        const { userExistsModule } = this.props;
+        userExistsModule.checkUserExists(email);
+
         this.setState({
             loading: true
         });
@@ -62,3 +67,7 @@ export class AuthenticationForm extends React.Component {
         }, 5000);
     }
 }
+
+export const ConnectedAuthenticationForm = connectStore({
+    userExistsModule
+})(AuthenticationForm);

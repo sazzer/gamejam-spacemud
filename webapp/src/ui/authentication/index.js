@@ -1,1 +1,1 @@
-export { AuthenticationForm } from './AuthenticationForm';
+export { ConnectedAuthenticationForm as AuthenticationForm } from './AuthenticationForm';
