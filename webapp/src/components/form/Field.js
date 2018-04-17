@@ -5,12 +5,12 @@ import {Form, Label} from 'semantic-ui-react';
 import {Interpolate} from 'react-i18next';
 
 type Props = {
-    errorKey: ?string,
+    errorKey?: string,
     labelKey: string,
     type: string,
-    autoFocus: ?boolean,
+    autoFocus?: boolean,
     name: string,
-    value: ?string,
+    value?: string,
     readOnly: boolean,
     onChange: (string) => void
 }

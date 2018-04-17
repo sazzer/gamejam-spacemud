@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import {Button, Form, Header} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 import {Interpolate} from 'react-i18next';
-import {Field} from '../../components/form';
+import {Field, Form} from '../../components/form';
 
 type Props = {
     loading: boolean;
@@ -14,16 +14,8 @@ type Props = {
 }
 
 export function StartForm({loading, email, missingEmailError, onEmailChanged, onSubmit}: Props) {
-    const onSubmitWrapper = (e) => {
-        e.preventDefault();
-        onSubmit();
-    };
-
     return (
-        <Form action="#" onSubmit={onSubmitWrapper}>
-            <Header dividing as="h4">
-                <Interpolate i18nKey="authentication.start.label" />
-            </Header>
+        <Form labelKey="authentication.start.label" onSubmit={onSubmit}>
             <Field
                 labelKey="authentication.start.email.label"
                 name="email"

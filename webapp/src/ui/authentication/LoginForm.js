@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import {Button, Form, Header} from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 import {Interpolate} from 'react-i18next';
-import {Field} from '../../components/form';
+import {Field, Form} from '../../components/form';
 
 type Props = {
     loading: boolean;
@@ -15,16 +15,8 @@ type Props = {
 }
 
 export function LoginForm({loading, email, password, missingPasswordError, onPasswordChanged, onSubmit}: Props) {
-    const onSubmitWrapper = (e) => {
-        e.preventDefault();
-        onSubmit();
-    };
-
     return (
-        <Form action="#" onSubmit={onSubmitWrapper}>
-            <Header dividing as="h4">
-                <Interpolate i18nKey="authentication.login.label" />
-            </Header>
+        <Form labelKey="authentication.login.label" onSubmit={onSubmit}>
             <Field
                 labelKey="authentication.login.email.label"
                 name="email"
