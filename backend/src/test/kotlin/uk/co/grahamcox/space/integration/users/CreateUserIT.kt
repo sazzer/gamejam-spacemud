@@ -1,7 +1,6 @@
 package uk.co.grahamcox.space.integration.users
 
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 import org.springframework.http.HttpStatus
@@ -12,7 +11,6 @@ import uk.co.grahamcox.space.spring.SpringTestBase
  * Integration tests for creating a new user
  */
 @Sql("classpath:uk/co/grahamcox/space/integration/users/CreateUser.sql")
-@Disabled
 class CreateUserIT : SpringTestBase() {
     /**
      * Test successfully creating a new user
@@ -31,9 +29,18 @@ class CreateUserIT : SpringTestBase() {
 
                 Executable { Assertions.assertEquals("new@example.com", response.bodyValue("email")) },
                 Executable { Assertions.assertEquals("New User", response.bodyValue("displayName")) },
-                Executable { Assertions.assertNotNull(response.bodyValue("_embedded/token/access_token"))},
-                Executable { Assertions.assertEquals("Bearer", response.bodyValue("_embedded/token/token_type")) },
-                Executable { Assertions.assertNotNull(response.bodyValue("_embedded/token/expires_in")) }
+
+//                Executable { Assertions.assertNotNull(response.bodyValue("_embedded.token.access_token"))},
+//                Executable { Assertions.assertEquals("Bearer", response.bodyValue("_embedded.token.token_type")) },
+//                Executable { Assertions.assertNotNull(response.bodyValue("_embedded.token.expires_in")) },
+
+                Executable { Assertions.assertNotNull(response.bodyValue("_links.self.href"))},
+                Executable { Assertions.assertEquals(false, response.bodyValue("_links.self.templated")) },
+                Executable { Assertions.assertEquals("application/hal+json", response.bodyValue("_links.self.type")) },
+
+                Executable { Assertions.assertNotNull(response.bodyValue("_meta.created"))},
+                Executable { Assertions.assertNotNull(response.bodyValue("_meta.updated"))},
+                Executable { Assertions.assertNotNull(response.bodyValue("_meta.version"))}
 
                 /*
                 {
@@ -64,6 +71,36 @@ class CreateUserIT : SpringTestBase() {
     }
 
     /**
+     * Test successfully creating a new user and then looking it up to see if it really exists
+     */
+    @Test
+    fun lookupCreatedUser() {
+        requester.post(uri = "/api/users",
+                body = mapOf(
+                        "email" to "new@example.com",
+                        "displayName" to "New User",
+                        "password" to "myPassword"
+                ))
+
+        val response = requester.get("/api/users/emails/new@example.com")
+
+        Assertions.assertAll(
+                Executable { Assertions.assertEquals(HttpStatus.OK, response.statusCode) },
+
+                Executable { Assertions.assertEquals("new@example.com", response.bodyValue("email")) },
+                Executable { Assertions.assertEquals("New User", response.bodyValue("displayName")) },
+
+                Executable { Assertions.assertNotNull(response.bodyValue("_links.self.href"))},
+                Executable { Assertions.assertEquals(false, response.bodyValue("_links.self.templated")) },
+                Executable { Assertions.assertEquals("application/hal+json", response.bodyValue("_links.self.type")) },
+
+                Executable { Assertions.assertNotNull(response.bodyValue("_meta.created"))},
+                Executable { Assertions.assertNotNull(response.bodyValue("_meta.updated"))},
+                Executable { Assertions.assertNotNull(response.bodyValue("_meta.version"))}
+        )
+    }
+
+    /**
      * Test failing to create a new user because the email address already existed
      */
     @Test
@@ -79,11 +116,11 @@ class CreateUserIT : SpringTestBase() {
                 Executable { Assertions.assertEquals(HttpStatus.CONFLICT, response.statusCode) },
 
                 Executable { jsonMatch("""{
-                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/users/problems/create/duplicate-email",
-                  "detail" : "Duplicate email address: test@user.example.com",
+                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/users/problems/duplicate/duplicate-email",
+                  "detail" : "Duplicate email address",
                   "status" : 409,
-                  "type" : "tag:grahamcox.co.uk,2018,spacemud/users/problems/create",
-                  "title" : "User Creation Failed"
+                  "type" : "tag:grahamcox.co.uk,2018,spacemud/users/problems/duplicate",
+                  "title" : "Duplicate User Details"
                 }""", response.body) }
         )
     }
