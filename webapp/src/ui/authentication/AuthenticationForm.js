@@ -1,40 +1,41 @@
 import React from 'react';
-import { StartFormContainer } from "./StartFormContainer";
-import { LoginFormContainer } from "./LoginFormContainer";
-import { RegisterFormContainer } from "./RegisterFormContainer";
-
-/** Form state for when we haven't started anything yet */
-const FORM_STATE_INITIAL = "initial";
-/** Form state for when we are logging in */
-const FORM_STATE_LOGIN = "login";
-/** Form state for when we are registering */
-const FORM_STATE_REGISTER = "register";
+import {StartFormContainer} from "./StartFormContainer";
+import {LoginFormContainer} from "./LoginFormContainer";
+import {RegisterFormContainer} from "./RegisterFormContainer";
+import {connectStore} from 'redux-box'
+import {
+    USER_EXISTS_STATUS_KNOWN,
+    USER_EXISTS_STATUS_LOADING,
+    USER_EXISTS_STATUS_UNKNOWN,
+    userExistsModule
+} from "../../authentication";
 
 /**
  * Form for Authentication, both in terms of Login and Registration
  * @constructor
  */
 export class AuthenticationForm extends React.Component {
-    /**
-     * Default initial state for the form
-     */
-    state = {
-        email: null,
-        formState: FORM_STATE_INITIAL,
-        loading: false
-    };
-
     _onStartFormSubmitted = this._onStartFormSubmittedHandler.bind(this);
 
     render() {
-        const { formState, email, loading } = this.state;
+        const { userExistsModule } = this.props;
+
         let formBody;
-        if (formState === FORM_STATE_INITIAL) {
-            formBody = <StartFormContainer loading={loading} onSubmit={this._onStartFormSubmitted} />;
-        } else if (formState === FORM_STATE_LOGIN) {
-            formBody = <LoginFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
-        } else if (formState === FORM_STATE_REGISTER) {
-            formBody = <RegisterFormContainer loading={loading} email={email} onSubmit={this._onStartFormSubmitted} />
+        if (userExistsModule.status === USER_EXISTS_STATUS_KNOWN) {
+            formBody = <LoginFormContainer
+                loading={false}
+                email={userExistsModule.email}
+                onSubmit={this._onStartFormSubmitted} />;
+        } else if (userExistsModule.status === USER_EXISTS_STATUS_UNKNOWN) {
+            formBody = <RegisterFormContainer
+                loading={false}
+                email={userExistsModule.email}
+                onSubmit={this._onStartFormSubmitted} />;
+        } else {
+            formBody = <StartFormContainer
+                loading={userExistsModule.status === USER_EXISTS_STATUS_LOADING}
+                email={userExistsModule.email}
+                onSubmit={this._onStartFormSubmitted} />;
         }
 
         return (
@@ -50,15 +51,11 @@ export class AuthenticationForm extends React.Component {
      * @private
      */
     _onStartFormSubmittedHandler(email) {
-        this.setState({
-            loading: true
-        });
-        setTimeout(() => {
-            this.setState({
-                email: email,
-                formState: FORM_STATE_REGISTER,
-                loading: false
-            });
-        }, 5000);
+        const { userExistsModule } = this.props;
+        userExistsModule.checkUserExists(email);
     }
 }
+
+export const ConnectedAuthenticationForm = connectStore({
+    userExistsModule
+})(AuthenticationForm);

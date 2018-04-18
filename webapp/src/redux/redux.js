@@ -1,6 +1,6 @@
 import {createStore} from 'redux-box';
-import {module} from './module'
+import {userExistsModule} from '../authentication'
 
 export default createStore([
-    module
+    userExistsModule
 ]);
