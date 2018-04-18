@@ -12,11 +12,11 @@ const CHECK_USER_ACTION = USER_EXISTS_MODULE + "/CHECK_USER";
 const USER_EXISTS_ACTION = USER_EXISTS_MODULE + '/USER_EXISTS';
 
 /** The system is still loading whether the user exists */
-const STATUS_LOADING = 'loading';
+export const USER_EXISTS_STATUS_LOADING = 'loading';
 /** The email address is known */
-const STATUS_KNOWN = 'known';
+export const USER_EXISTS_STATUS_KNOWN = 'known';
 /** The email address is unknown */
-const STATUS_UNKNOWN = 'unknown';
+export const USER_EXISTS_STATUS_UNKNOWN = 'unknown';
 
 /** The shape of the state for this module */
 type State = {
@@ -30,7 +30,7 @@ const actions = {
 
 const mutations = {
     [CHECK_USER_ACTION]: (state: State, action: {type: string, email: string}) => {
-        state.status = STATUS_LOADING;
+        state.status = USER_EXISTS_STATUS_LOADING;
         state.email = action.email;
     },
     [USER_EXISTS_ACTION]: (state: State, action: {type: string, status: string}) => {
@@ -44,12 +44,12 @@ const sagas = createSagas({
             yield call(httpClient.head, `/users/emails/${action.email}`);
             yield put({
                 type: USER_EXISTS_ACTION,
-                status: STATUS_KNOWN
+                status: USER_EXISTS_STATUS_KNOWN
             });
         } catch (e) {
             yield put({
                 type: USER_EXISTS_ACTION,
-                status: STATUS_UNKNOWN
+                status: USER_EXISTS_STATUS_UNKNOWN
             });
 
         }
