@@ -1,34 +1,64 @@
 // @flow
 import {createSagas} from "redux-box";
+import {call, put} from 'redux-saga/effects'
+import { httpClient } from "../api";
 
+/** The name of the module */
+const USER_EXISTS_MODULE = "AUTHENTICATION/USER_EXISTS";
+
+/** The action key for checking if a user exists */
+const CHECK_USER_ACTION = USER_EXISTS_MODULE + "/CHECK_USER";
+/** The action key for indicating whether a user exists or not */
+const USER_EXISTS_ACTION = USER_EXISTS_MODULE + '/USER_EXISTS';
+
+/** The system is still loading whether the user exists */
 const STATUS_LOADING = 'loading';
+/** The email address is known */
+const STATUS_KNOWN = 'known';
+/** The email address is unknown */
+const STATUS_UNKNOWN = 'unknown';
 
+/** The shape of the state for this module */
 type State = {
-    status?: string
+    status?: string,
+    email?: string
 }
 
-const state: State = {
-
-};
-
 const actions = {
-    checkUserExists: (email: string) => ({ type: "AUTHENTICATION/CHECK_USER", email })
+    checkUserExists: (email: string) => ({ type: CHECK_USER_ACTION, email })
 };
 
 const mutations = {
-    'AUTHENTICATION/CHECK_USER': (state: State, action: {type: string, email: string}) => {
+    [CHECK_USER_ACTION]: (state: State, action: {type: string, email: string}) => {
         state.status = STATUS_LOADING;
+        state.email = action.email;
+    },
+    [USER_EXISTS_ACTION]: (state: State, action: {type: string, status: string}) => {
+        state.status = action.status;
     }
 };
 
 const sagas = createSagas({
-    'AUTHENTICATION/CHECK_USER': function*(action) {
+    [CHECK_USER_ACTION]: function*(action) {
+        try {
+            yield call(httpClient.head, `/users/emails/${action.email}`);
+            yield put({
+                type: USER_EXISTS_ACTION,
+                status: STATUS_KNOWN
+            });
+        } catch (e) {
+            yield put({
+                type: USER_EXISTS_ACTION,
+                status: STATUS_UNKNOWN
+            });
+
+        }
     }
 });
 
 export const userExistsModule = {
-    name: "AUTHENTICATION/CHECK_USER",
-    state,
+    name: USER_EXISTS_MODULE,
+    state: {},
     actions,
     mutations,
     sagas
