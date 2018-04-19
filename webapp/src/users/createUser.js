@@ -22,7 +22,8 @@ export const CREATE_USER_STATUS_FAILURE = 'failure';
 
 /** The shape of the state for this module */
 type State = {
-    status?: string
+    status?: string,
+    error?: string
 }
 
 const actions = {
@@ -32,12 +33,15 @@ const actions = {
 const mutations = {
     [CREATE_USER_ACTION]: (state: State) => {
         state.status = CREATE_USER_STATUS_LOADING;
+        state.error = undefined;
     },
     [CREATE_USER_SUCCESS_ACTION]: (state: State) => {
         state.status = CREATE_USER_STATUS_SUCCESS;
+        state.error = undefined;
     },
-    [CREATE_USER_FAILURE_ACTION]: (state: State) => {
+    [CREATE_USER_FAILURE_ACTION]: (state: State, action: {error: string}) => {
         state.status = CREATE_USER_STATUS_FAILURE;
+        state.error = action.error;
     }
 };
 
@@ -53,9 +57,18 @@ const sagas = createSagas({
                 type: CREATE_USER_SUCCESS_ACTION
             });
         } catch (e) {
-            yield put({
-                type: CREATE_USER_FAILURE_ACTION
-            });
+            const response = e.response;
+            if (response.status === 409 && e.response.data.instance) {
+                yield put({
+                    type: CREATE_USER_FAILURE_ACTION,
+                    error: e.response.data.instance
+                });
+            } else {
+                yield put({
+                    type: CREATE_USER_FAILURE_ACTION,
+                    error: 'tag:grahamcox.co.uk,2018,spacemud/problems/unknown'
+                });
+            }
         }
     }
 });

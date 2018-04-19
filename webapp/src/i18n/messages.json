@@ -51,6 +51,10 @@
         "validation": {
           "missing": "Screen Name was not provided"
         }
+      },
+      "problems": {
+        "title": "Error registering new user",
+        "duplicate-email": "Email Address is already registered"
       }
     }
   }
