@@ -31,7 +31,7 @@
         <version.jdk>1.8</version.jdk>
         <version.junitJupiter>5.1.1</version.junitJupiter>
         <version.junitPlatform>1.1.1</version.junitPlatform>
-        <version.kotlin>1.2.31</version.kotlin>
+        <version.kotlin>1.2.40</version.kotlin>
         <version.maven>3.5.0</version.maven>
         <version.slf4j>1.7.25</version.slf4j>
         <version.spring>5.0.5.RELEASE</version.spring>
@@ -43,6 +43,11 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>1.2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.3.0</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -305,7 +310,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -380,7 +385,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
