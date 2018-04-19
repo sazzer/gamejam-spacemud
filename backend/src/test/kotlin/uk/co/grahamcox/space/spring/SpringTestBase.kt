@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestExecutionListeners
@@ -37,6 +38,10 @@ class SpringTestBase {
     /** The object mapper to use */
     @Autowired
     private lateinit var objectMapper: ObjectMapper
+
+    /** The means to access the database */
+    @Autowired
+    lateinit var jdbcTemplate: NamedParameterJdbcTemplate
 
     /**
      * Reset the access token in the requester

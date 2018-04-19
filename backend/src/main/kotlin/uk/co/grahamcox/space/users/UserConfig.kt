@@ -28,6 +28,12 @@ class UserConfig {
     fun userTranslator() = UserTranslator()
 
     /**
+     * The means to hash passwords
+     */
+    @Bean
+    fun passwordHasher() = PasswordHasher()
+
+    /**
      * The Get Users Controller
      */
     @Bean
@@ -37,5 +43,6 @@ class UserConfig {
      * The Create Users Controller
      */
     @Bean
-    fun createUserController(userDao: UserDao, userTranslator: UserTranslator) = CreateUserController(userDao, userTranslator)
+    fun createUserController(userDao: UserDao, passwordHasher: PasswordHasher, userTranslator: UserTranslator) =
+            CreateUserController(userDao, passwordHasher, userTranslator)
 }

@@ -28,6 +28,21 @@ internal class PasswordHasherTest {
     }
 
     /**
+     * Test that hasing the same password 100 times produces 100 different hashes
+     */
+    @Test
+    fun testHashUnique() {
+        val hashes = mutableSetOf<String>()
+
+        (1..100).forEach {
+            val hashed = testSubject.hashPassword("password")
+            Assertions.assertFalse(hashes.contains(hashed))
+
+            hashes.add(hashed)
+        }
+
+    }
+    /**
      * Test comparing the hashed password to a similar password and ensure that they return a negative match
      */
     @TestFactory

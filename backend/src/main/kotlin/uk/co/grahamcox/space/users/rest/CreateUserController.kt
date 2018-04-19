@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import uk.co.grahamcox.space.users.PasswordHasher
 import uk.co.grahamcox.space.users.UserData
 import uk.co.grahamcox.space.users.dao.DuplicateUserException
 import uk.co.grahamcox.space.users.dao.UserDao
@@ -16,6 +17,7 @@ import java.net.URI
 @RequestMapping("/api/users")
 class CreateUserController(
         private val userDao: UserDao,
+        private val passwordHasher: PasswordHasher,
         private val userTranslator: UserTranslator
 ) {
     /**
@@ -39,7 +41,7 @@ class CreateUserController(
         val userData = UserData(
                 email = data.email,
                 displayName = data.displayName,
-                password = data.password
+                password = passwordHasher.hashPassword(data.password)
         )
 
         val createdUser = userDao.create(userData)

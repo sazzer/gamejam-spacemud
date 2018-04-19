@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 import org.springframework.http.HttpStatus
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.test.context.jdbc.Sql
 import uk.co.grahamcox.space.spring.SpringTestBase
 
@@ -123,5 +124,32 @@ class CreateUserIT : SpringTestBase() {
                   "title" : "Duplicate User Details"
                 }""", response.body) }
         )
+    }
+
+    /**
+     * Test that the database record created by the API is as expected
+     */
+    @Test
+    fun createUserDatabaseRecord() {
+        requester.post(uri = "/api/users",
+                body = mapOf(
+                        "email" to "new@example.com",
+                        "displayName" to "New User",
+                        "password" to "myPassword"
+                ))
+
+        val rowset = jdbcTemplate.queryForRowSet("SELECT * FROM users WHERE email = :email",
+                MapSqlParameterSource(mapOf("email" to "new@example.com")))
+
+        Assertions.assertTrue(rowset.first())
+
+        Assertions.assertAll(
+                Executable { Assertions.assertEquals("new@example.com", rowset.getString("email")) },
+                Executable { Assertions.assertEquals("New User", rowset.getString("display_name")) },
+                Executable { Assertions.assertNotEquals("myPassword", rowset.getString("password")) }
+        )
+
+        Assertions.assertFalse(rowset.next())
+
     }
 }
