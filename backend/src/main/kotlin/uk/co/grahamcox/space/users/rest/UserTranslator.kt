@@ -19,7 +19,7 @@ class UserTranslator {
     fun translate(user: Resource<UserId, UserData>) = UserModel(
             links = UserLinks(
                     self = Link(
-                            href = UsersController::getUserById.buildUri(user.identity.id.id)
+                            href = GetUserController::getUserById.buildUri(user.identity.id.id)
                     )
             ),
             meta = Meta(
