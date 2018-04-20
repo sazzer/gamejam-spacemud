@@ -2,6 +2,8 @@
 import {createSagas} from "redux-box";
 import {call, put} from 'redux-saga/effects'
 import {httpClient} from "../api";
+import {RECEIVED_ACCESS_TOKEN_ACTION} from "../authentication";
+import {RECEIVED_USER_PROFILE_ACTION} from "./userProfile";
 
 /** The name of the module */
 const CREATE_USER_MODULE = "USERS/CREATE_USER";
@@ -48,13 +50,25 @@ const mutations = {
 const sagas = createSagas({
     [CREATE_USER_ACTION]: function*(action) {
         try {
-            yield call(httpClient.post, '/users', {
+            const response = yield call(httpClient.post, '/users', {
                 email: action.email,
                 password: action.password,
                 displayName: action.displayName
             });
             yield put({
                 type: CREATE_USER_SUCCESS_ACTION
+            });
+            yield put({
+                type: RECEIVED_USER_PROFILE_ACTION,
+                email: response.data.email,
+                displayName: response.data.displayName,
+                links: {
+                    self: response.data._links.self.href
+                }
+            });
+            yield put({
+                type: RECEIVED_ACCESS_TOKEN_ACTION,
+                token: response.data._embedded.token.access_token
             });
         } catch (e) {
             const response = e.response;

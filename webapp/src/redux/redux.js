@@ -1,8 +1,10 @@
 import {createStore} from 'redux-box';
-import {userExistsModule} from '../authentication'
-import {createUserModule} from '../users'
+import {userExistsModule, accessTokenModule} from '../authentication'
+import {createUserModule, userProfileModule} from '../users'
 
 export default createStore([
     userExistsModule,
-    createUserModule
+    accessTokenModule,
+    createUserModule,
+    userProfileModule
 ]);
