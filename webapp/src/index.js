@@ -3,9 +3,9 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { I18nextProvider, translate } from 'react-i18next';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import store from './redux/redux'
+import { store, history } from './redux/redux'
 import registerServiceWorker from './registerServiceWorker';
 import { UI } from "./ui";
 import i18n from './i18n';
@@ -23,7 +23,7 @@ const TranslatedAppContents = translate(['space'], {wait: true})(UI);
 const AppWrapper = () => (
     <I18nextProvider i18n={ i18n }>
         <Provider store={store}>
-            <Router>
+            <Router history={history}>
                 <TranslatedAppContents />
             </Router>
         </Provider>
