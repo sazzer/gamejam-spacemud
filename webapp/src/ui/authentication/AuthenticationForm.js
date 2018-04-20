@@ -1,6 +1,6 @@
 import React from 'react';
 import {StartFormContainer} from "./StartFormContainer";
-import {LoginFormContainer} from "./LoginFormContainer";
+import {ConnectedLoginForm} from "./ConnectedLoginForm";
 import {ConnectedRegisterForm} from "./ConnectedRegisterForm";
 import {connectStore} from 'redux-box'
 import {
@@ -22,10 +22,9 @@ export class AuthenticationForm extends React.Component {
 
         let formBody;
         if (userExistsModule.status === USER_EXISTS_STATUS_KNOWN) {
-            formBody = <LoginFormContainer
+            formBody = <ConnectedLoginForm
                 loading={false}
-                email={userExistsModule.email}
-                onSubmit={this._onStartFormSubmitted} />;
+                email={userExistsModule.email} />;
         } else if (userExistsModule.status === USER_EXISTS_STATUS_UNKNOWN) {
             formBody = <ConnectedRegisterForm
                 loading={false}
