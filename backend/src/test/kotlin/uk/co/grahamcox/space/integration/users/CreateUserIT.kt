@@ -31,9 +31,9 @@ class CreateUserIT : SpringTestBase() {
                 Executable { Assertions.assertEquals("new@example.com", response.bodyValue("email")) },
                 Executable { Assertions.assertEquals("New User", response.bodyValue("displayName")) },
 
-//                Executable { Assertions.assertNotNull(response.bodyValue("_embedded.token.access_token"))},
-//                Executable { Assertions.assertEquals("Bearer", response.bodyValue("_embedded.token.token_type")) },
-//                Executable { Assertions.assertNotNull(response.bodyValue("_embedded.token.expires_in")) },
+                Executable { Assertions.assertNotNull(response.bodyValue("_embedded.token.access_token"))},
+                Executable { Assertions.assertEquals("Bearer", response.bodyValue("_embedded.token.token_type")) },
+                Executable { Assertions.assertNotNull(response.bodyValue("_embedded.token.expires_in")) },
 
                 Executable { Assertions.assertNotNull(response.bodyValue("_links.self.href"))},
                 Executable { Assertions.assertEquals(false, response.bodyValue("_links.self.templated")) },

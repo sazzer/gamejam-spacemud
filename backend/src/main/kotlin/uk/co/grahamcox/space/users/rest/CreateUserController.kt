@@ -18,7 +18,7 @@ import java.net.URI
 class CreateUserController(
         private val userDao: UserDao,
         private val passwordHasher: PasswordHasher,
-        private val userTranslator: UserTranslator
+        private val userTranslator: AuthorizedUserTranslator
 ) {
     /**
      * Exception handler for when the user details being created were a duplicate
@@ -37,7 +37,7 @@ class CreateUserController(
      * @return the response from creating the user
      */
     @RequestMapping(method = [RequestMethod.POST], produces = ["application/hal+json"])
-    fun createUser(@RequestBody data: CreateUserModel): ResponseEntity<UserModel> {
+    fun createUser(@RequestBody data: CreateUserModel): ResponseEntity<AuthorizedUserModel> {
         val userData = UserData(
                 email = data.email,
                 displayName = data.displayName,

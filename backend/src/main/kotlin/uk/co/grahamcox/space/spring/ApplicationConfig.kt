@@ -4,6 +4,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
+import uk.co.grahamcox.space.authorization.AuthorizationConfig
 import uk.co.grahamcox.space.home.HomeController
 import uk.co.grahamcox.space.users.UserConfig
 import uk.co.grahamcox.space.websocket.WebSocketConfig
@@ -18,6 +19,7 @@ import java.time.ZoneId
         DatabaseConfig::class,
         WebMvcConfig::class,
         WebSocketConfig::class,
+        AuthorizationConfig::class,
         UserConfig::class
 )
 class ApplicationConfig {
