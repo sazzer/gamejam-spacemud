@@ -3,7 +3,7 @@
 import React from 'react';
 import {Button} from 'semantic-ui-react';
 import {Interpolate} from 'react-i18next';
-import {Field, Form} from '../../components/form';
+import {Field, Form} from '../../../components/form';
 
 type Props = {
     loading: boolean;

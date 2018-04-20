@@ -25,6 +25,11 @@
         "validation": {
           "missing": "Password was not provided"
         }
+      },
+      "problems": {
+        "title": "Login Error",
+        "unknown-user": "The email address is not registered",
+        "invalid-password": "The password was incorrect"
       }
     },
     "register": {

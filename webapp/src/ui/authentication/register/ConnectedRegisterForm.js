@@ -3,8 +3,8 @@
 import React from 'react';
 import {RegisterFormContainer} from "./RegisterFormContainer";
 import {connectStore} from 'redux-box'
-import {CREATE_USER_STATUS_LOADING, createUserModule} from "../../users";
-import { ErrorMessage } from "../../components/ErrorMessage";
+import {CREATE_USER_STATUS_LOADING, createUserModule} from "../../../users";
+import { ErrorMessage } from "../../../components/ErrorMessage";
 
 /** Mapping of error keys to the message keys */
 const errorKeys = {

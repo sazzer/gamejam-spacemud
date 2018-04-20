@@ -1,5 +1,7 @@
 // @flow
 import {createSagas} from "redux-box";
+import {push} from 'react-router-redux';
+import {put} from 'redux-saga/effects'
 
 /** The name of the module */
 const ACCESS_TOKEN_MODULE = "AUTHENTICATION/ACCESS_TOKEN";
@@ -27,6 +29,9 @@ const mutations = {
 };
 
 const sagas = createSagas({
+    [RECEIVED_ACCESS_TOKEN_ACTION]: function*() {
+        yield put(push('/characters'));
+    }
 });
 
 export const accessTokenModule = {
