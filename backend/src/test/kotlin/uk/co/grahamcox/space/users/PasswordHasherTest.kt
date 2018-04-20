@@ -11,7 +11,7 @@ import org.junit.jupiter.api.function.Executable
  */
 internal class PasswordHasherTest {
     /** The test subject */
-    val testSubject = PasswordHasher()
+    val testSubject = PasswordHasher(10)
 
     /**
      * The whole point of hashed passwords is that they are unpredictable and irreversable.

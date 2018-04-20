@@ -23,3 +23,9 @@ logging:
 space:
   database:
     embedded: true
+  authorization:
+    accessToken:
+      secret: ReplaceThisSecret
+      duration: P1D
+    password:
+      saltRounds: 10
