@@ -7,10 +7,7 @@ import uk.co.grahamcox.space.authorization.AccessTokenGenerator
 import uk.co.grahamcox.space.authorization.rest.AccessTokenTranslator
 import uk.co.grahamcox.space.users.dao.PsqlUserDaoImpl
 import uk.co.grahamcox.space.users.dao.UserDao
-import uk.co.grahamcox.space.users.rest.AuthorizedUserTranslator
-import uk.co.grahamcox.space.users.rest.CreateUserController
-import uk.co.grahamcox.space.users.rest.UserTranslator
-import uk.co.grahamcox.space.users.rest.GetUserController
+import uk.co.grahamcox.space.users.rest.*
 import java.time.Clock
 
 /**
@@ -18,15 +15,9 @@ import java.time.Clock
  */
 @Configuration
 class UserConfig {
-    /**
-     * The User DAO
-     */
     @Bean
     fun userDao(clock: Clock, jdbcTemplate: NamedParameterJdbcTemplate) = PsqlUserDaoImpl(clock, jdbcTemplate)
 
-    /**
-     * The means to translate user resources
-     */
     @Bean
     fun userTranslator() = UserTranslator()
 
@@ -35,22 +26,18 @@ class UserConfig {
                                  accessTokenGenerator: AccessTokenGenerator,
                                  accessTokenTranslator: AccessTokenTranslator) =
             AuthorizedUserTranslator(userTranslator, accessTokenGenerator, accessTokenTranslator)
-    /**
-     * The means to hash passwords
-     */
+
     @Bean
     fun passwordHasher() = PasswordHasher()
 
-    /**
-     * The Get Users Controller
-     */
     @Bean
     fun getUserController(userDao: UserDao, userTranslator: UserTranslator) = GetUserController(userDao, userTranslator)
 
-    /**
-     * The Create Users Controller
-     */
     @Bean
     fun createUserController(userDao: UserDao, passwordHasher: PasswordHasher, userTranslator: AuthorizedUserTranslator) =
             CreateUserController(userDao, passwordHasher, userTranslator)
+
+    @Bean
+    fun authenticationController(userDao: UserDao, passwordHasher: PasswordHasher, userTranslator: AuthorizedUserTranslator) =
+            AuthenticationController(userDao, passwordHasher, userTranslator)
 }
