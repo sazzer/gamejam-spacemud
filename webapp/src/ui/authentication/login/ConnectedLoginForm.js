@@ -3,8 +3,8 @@
 import React from 'react';
 import {LoginFormContainer} from "./LoginFormContainer";
 import {connectStore} from 'redux-box'
-import {AUTHENTICATE_STATUS_LOADING, authenticateModule} from "../../authentication";
-import { ErrorMessage } from "../../components/ErrorMessage";
+import {AUTHENTICATE_STATUS_LOADING, authenticateModule} from "../../../authentication";
+import {ErrorMessage} from "../../../components/ErrorMessage";
 
 /** Mapping of error keys to the message keys */
 const errorKeys = {

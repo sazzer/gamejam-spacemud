@@ -1,7 +1,7 @@
 import React from 'react';
-import {StartFormContainer} from "./StartFormContainer";
-import {ConnectedLoginForm} from "./ConnectedLoginForm";
-import {ConnectedRegisterForm} from "./ConnectedRegisterForm";
+import {StartFormContainer} from "./start/StartFormContainer";
+import {ConnectedLoginForm} from "./login/ConnectedLoginForm";
+import {ConnectedRegisterForm} from "./register/ConnectedRegisterForm";
 import {connectStore} from 'redux-box'
 import {
     USER_EXISTS_STATUS_KNOWN,
