@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.markov
+package uk.co.grahamcox.space.generation.markov
 
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.math3.random.Well19937a
