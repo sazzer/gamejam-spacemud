@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test
 /**
  * Some tests for the Markov Chain Generator
  */
-internal class MarkovChainGeneratorTest {
+internal class SimpleMarkovChainGeneratorImplTest {
     /** The test subject */
-    private val testSubject = MarkovChainGenerator(
+    private val testSubject = SimpleMarkovChainGeneratorImpl(
                     listOf(
                             "Aldebarans",
                             "Altairians",
@@ -43,8 +43,7 @@ internal class MarkovChainGeneratorTest {
                             "Strenuous Garfighters of Stug",
                             "Vogons"
                     ),
-                    2,
-                    Well19937a()
+                    2
             )
 
     /**
@@ -52,7 +51,7 @@ internal class MarkovChainGeneratorTest {
      */
     @Test
     fun testGenerateOne() {
-        testSubject.generate()
+        testSubject.generate(Well19937a())
     }
 
     /**
@@ -60,7 +59,7 @@ internal class MarkovChainGeneratorTest {
      */
     @Test
     fun testGenerateMany() {
-        val list = testSubject.generate(15)
+        val list = testSubject.generate(Well19937a(), 15)
 
         list
                 .map { it.toLowerCase() }
