@@ -1,5 +1,6 @@
-package uk.co.grahamcox.space.galaxy.generation
+package uk.co.grahamcox.space.galaxy.starmap.generation
 
+import uk.co.grahamcox.space.galaxy.starmap.StarMap
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File

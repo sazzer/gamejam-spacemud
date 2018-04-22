@@ -1,7 +1,6 @@
-package uk.co.grahamcox.space.galaxy.generation
+package uk.co.grahamcox.space.galaxy.starmap.generation
 
 import org.apache.commons.math3.random.RandomGenerator
-import org.apache.commons.math3.random.Well19937c
 import org.slf4j.LoggerFactory
 
 /**

@@ -1,6 +1,7 @@
-package uk.co.grahamcox.space.galaxy.generation
+package uk.co.grahamcox.space.galaxy.starmap.generation
 
 import org.apache.commons.math3.random.RandomGenerator
+import uk.co.grahamcox.space.galaxy.starmap.StarMap
 
 /**
  * Interface describing how to generate a new star map of the galaxy

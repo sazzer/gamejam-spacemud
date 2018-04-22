@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.galaxy.generation
+package uk.co.grahamcox.space.galaxy.starmap
 
 /**
  * Representation of the galaxy that we are generating
