@@ -1,13 +1,11 @@
 package uk.co.grahamcox.space.galaxy.generation
 
-import uk.co.grahamcox.space.galaxy.generation.Sector
-
 /**
  * Representation of the galaxy that we are generating
  * @property sectors The actual sectors that make up the galaxy
  */
 class StarMap(
-        private val sectors: Array<Array<Sector>>
+        private val sectors: Array<IntArray>
 ) {
     /** The width of the galaxy */
     val width = sectors.size

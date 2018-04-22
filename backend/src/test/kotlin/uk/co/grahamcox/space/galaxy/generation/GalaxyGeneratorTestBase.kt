@@ -19,7 +19,7 @@ open class GalaxyGeneratorTestBase {
 
         for (x in 0 until starMap.width) {
             for (y in 0 until starMap.height) {
-                val count = starMap.getSector(x, y).starCount
+                val count = starMap.getSector(x, y)
                 max = Math.max(max, count)
             }
         }
@@ -30,7 +30,7 @@ open class GalaxyGeneratorTestBase {
 
         for (x in 0 until starMap.width) {
             for (y in 0 until starMap.height) {
-                val count = starMap.getSector(x, y).starCount
+                val count = starMap.getSector(x, y)
                 val ratio = Math.min(255, Math.floor(1024 * count.toDouble() / max).toInt())
 
                 val color = Color(ratio, ratio, ratio, 255)

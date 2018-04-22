@@ -22,11 +22,7 @@ abstract class StarMapGeneratorImpl : StarMapGenerator {
 
         val starMap = generateStarMap(size, stars)
 
-        val sectorMap = starMap.map { row ->
-            row.map { Sector(it) }.toTypedArray()
-        }.toTypedArray()
-
-        return StarMap(sectorMap)
+        return StarMap(starMap)
     }
 
     /**
