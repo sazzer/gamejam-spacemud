@@ -3,12 +3,12 @@ package uk.co.grahamcox.space.galaxy.generation
 import org.slf4j.LoggerFactory
 
 /**
- * Core implementation of the Galaxy Generator
+ * Core implementation of the StarMap Generator
  */
-abstract class GalaxyGeneratorImpl : GalaxyGenerator {
+abstract class StarMapGeneratorImpl : StarMapGenerator {
     companion object {
         /** The logger to use */
-        private val LOG = LoggerFactory.getLogger(GalaxyGeneratorImpl::class.java)
+        private val LOG = LoggerFactory.getLogger(StarMapGeneratorImpl::class.java)
     }
 
     /**
@@ -17,7 +17,7 @@ abstract class GalaxyGeneratorImpl : GalaxyGenerator {
      * @param stars The number of stars in the galaxy
      * @return the generated galaxy
      */
-    override fun generateGalaxy(size: Int, stars: Int): Galaxy {
+    override fun generateGalaxy(size: Int, stars: Int): StarMap {
         LOG.debug("Generating galaxy of size {}x{}, with {} stars", size, size, stars)
 
         val starMap = generateStarMap(size, stars)
@@ -26,7 +26,7 @@ abstract class GalaxyGeneratorImpl : GalaxyGenerator {
             row.map { Sector(it) }.toTypedArray()
         }.toTypedArray()
 
-        return Galaxy(sectorMap)
+        return StarMap(sectorMap)
     }
 
     /**

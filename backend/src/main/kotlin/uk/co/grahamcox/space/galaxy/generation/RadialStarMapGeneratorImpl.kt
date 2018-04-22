@@ -4,13 +4,13 @@ import org.apache.commons.math3.random.Well19937c
 import org.slf4j.LoggerFactory
 
 /**
- * Galaxy Generator that works by generating a random angle around the centre and a random distance from the centre for
+ * StarMap Generator that works by generating a random angle around the centre and a random distance from the centre for
  * each of the stars in the galaxy
  */
-abstract class RadialGalaxyGeneratorImpl : GalaxyGeneratorImpl() {
+abstract class RadialStarMapGeneratorImpl : StarMapGeneratorImpl() {
     companion object {
         /** The logger to use */
-        private val LOG = LoggerFactory.getLogger(RadialGalaxyGeneratorImpl::class.java)
+        private val LOG = LoggerFactory.getLogger(RadialStarMapGeneratorImpl::class.java)
     }
 
     /** The RNG to use */

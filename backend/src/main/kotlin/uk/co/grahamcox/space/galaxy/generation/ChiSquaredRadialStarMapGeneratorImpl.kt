@@ -3,9 +3,9 @@ package uk.co.grahamcox.space.galaxy.generation
 import org.apache.commons.math3.distribution.ChiSquaredDistribution
 
 /**
- * Implementation of the [RadialGalaxyGeneratorImpl] that uses a Chi-Squared Distribution for distances
+ * Implementation of the [RadialStarMapGeneratorImpl] that uses a Chi-Squared Distribution for distances
  */
-class ChiSquaredRadialGalaxyGeneratorImpl : RadialGalaxyGeneratorImpl() {
+class ChiSquaredRadialStarMapGeneratorImpl : RadialStarMapGeneratorImpl() {
     /** The Distance Distribution to use with the RNG */
     private val distanceDistribution = ChiSquaredDistribution(rng, 2.5)
 
