@@ -1,5 +1,6 @@
 package uk.co.grahamcox.space.galaxy.generation
 
+import org.apache.commons.math3.random.Well19937a
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -15,7 +16,7 @@ internal class ChiSquaredRadialStarMapGeneratorImplTest : GalaxyGeneratorTestBas
     fun generate() {
         val testSubject = ChiSquaredRadialStarMapGeneratorImpl()
 
-        val galaxy = testSubject.generateGalaxy(100, 1000000)
+        val galaxy = testSubject.generateGalaxy(Well19937a(), 100, 1000000)
         val galaxyFilename = "/tmp/galaxy-chisquared.png"
 
         renderGalaxy(galaxy, galaxyFilename)

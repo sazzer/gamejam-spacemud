@@ -1,5 +1,6 @@
 package uk.co.grahamcox.space.galaxy.generation
 
+import org.apache.commons.math3.random.RandomGenerator
 import org.apache.commons.math3.random.Well19937c
 import org.slf4j.LoggerFactory
 
@@ -13,17 +14,15 @@ abstract class RadialStarMapGeneratorImpl : StarMapGeneratorImpl() {
         private val LOG = LoggerFactory.getLogger(RadialStarMapGeneratorImpl::class.java)
     }
 
-    /** The RNG to use */
-    protected val rng = Well19937c()
-
     /**
      * Generate the star map - literally an array or array of ints, where each entry is the number of stars in that
      * sector of space
+     * @param rng The RNG to use
      * @param size The number of sectors wide and high
      * @param stars The number of stars in the galaxy
      * @return the generated star map
      */
-    override fun generateStarMap(size: Int, stars: Int): Array<IntArray> {
+    override fun generateStarMap(rng: RandomGenerator, size: Int, stars: Int): Array<IntArray> {
         val starMap = Array(size) {
             IntArray(size) {
                 0
@@ -40,7 +39,7 @@ abstract class RadialStarMapGeneratorImpl : StarMapGeneratorImpl() {
             do {
                 degrees = rng.nextDouble() * 360
                 angle = Math.toRadians(degrees)
-                distance = generateDistance(halfSize)
+                distance = generateDistance(rng, halfSize)
 
                 x = Math.floor((Math.cos(angle) * distance) + halfSize).toInt()
                 y = Math.floor((Math.sin(angle) * distance) + halfSize).toInt()
@@ -56,8 +55,9 @@ abstract class RadialStarMapGeneratorImpl : StarMapGeneratorImpl() {
 
     /**
      * Generate the distance from the galactic core
+     * @param rng The RNG to use
      * @param halfSize The half-size of the galaxy - the distance from the core to the edge
      * @return the generated distance
      */
-    abstract fun generateDistance(halfSize: Double): Double
+    abstract fun generateDistance(rng: RandomGenerator, halfSize: Double): Double
 }

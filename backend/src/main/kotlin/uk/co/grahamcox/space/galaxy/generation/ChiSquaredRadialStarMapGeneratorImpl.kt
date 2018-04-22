@@ -1,20 +1,21 @@
 package uk.co.grahamcox.space.galaxy.generation
 
 import org.apache.commons.math3.distribution.ChiSquaredDistribution
+import org.apache.commons.math3.random.RandomGenerator
 
 /**
  * Implementation of the [RadialStarMapGeneratorImpl] that uses a Chi-Squared Distribution for distances
  */
 class ChiSquaredRadialStarMapGeneratorImpl : RadialStarMapGeneratorImpl() {
-    /** The Distance Distribution to use with the RNG */
-    private val distanceDistribution = ChiSquaredDistribution(rng, 2.5)
 
     /**
      * Generate the distance from the galactic core
+     * @param rng The RNG to use
      * @param halfSize The half-size of the galaxy - the distance from the core to the edge
      * @return the generated distance
      */
-    override fun generateDistance(halfSize: Double) =
-            distanceDistribution.sample() * (halfSize / distanceDistribution.numericalMean)
-
+    override fun generateDistance(rng: RandomGenerator, halfSize: Double): Double {
+        val distanceDistribution = ChiSquaredDistribution(rng, 2.5)
+        return distanceDistribution.sample() * (halfSize / distanceDistribution.numericalMean)
+    }
 }
