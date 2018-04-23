@@ -5,6 +5,7 @@ import io.mockk.mockk
 import org.apache.commons.math3.random.Well19937c
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import uk.co.grahamcox.space.galaxy.species.SpeciesTraits
 import uk.co.grahamcox.space.generation.markov.MarkovChainGenerator
 
 /**
@@ -24,7 +25,7 @@ internal class SpeciesGeneratorTest {
         System.out.println(species)
 
         // Net sum of all traits should be 0
-        Assertions.assertEquals(0, species.traits.values.sum())
+        Assertions.assertEquals(0, SpeciesTraits.values().map { species.getTrait(it) }.sum())
     }
 
     @Test

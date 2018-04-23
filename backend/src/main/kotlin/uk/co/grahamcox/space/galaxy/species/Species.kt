@@ -7,5 +7,12 @@ package uk.co.grahamcox.space.galaxy.species
  */
 data class Species(
         val name: String,
-        val traits: Map<SpeciesTraits, Int>
-)
+        private val traits: Map<SpeciesTraits, Int>
+) {
+    /**
+     * Get the actual value for the given trait
+     * @param trait The trait
+     * @return the value for the trait
+     */
+    fun getTrait(trait: SpeciesTraits) = traits.getOrDefault(trait, 0)
+}
