@@ -1,5 +1,7 @@
 package uk.co.grahamcox.space.galaxy.starmap
 
+import uk.co.grahamcox.space.galaxy.Coords
+
 /**
  * Representation of the galaxy that we are generating
  * @property sectors The actual sectors that make up the galaxy
@@ -15,9 +17,8 @@ class StarMap(
 
     /**
      * Get the details of a single sector in the galaxy
-     * @param x The x-ordinate of the sector
-     * @param y The y-ordinate of the sector
+     * @param coords The coords of the sector
      * @return the sector
      */
-    fun getSector(x: Int, y: Int) = sectors[x][y]
+    fun getSector(coords: Coords) = sectors[coords.x][coords.y]
 }

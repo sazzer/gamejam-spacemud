@@ -1,5 +1,6 @@
 package uk.co.grahamcox.space.galaxy.starmap.generation
 
+import uk.co.grahamcox.space.galaxy.Coords
 import uk.co.grahamcox.space.galaxy.starmap.StarMap
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -20,7 +21,7 @@ open class GalaxyGeneratorTestBase {
 
         for (x in 0 until starMap.width) {
             for (y in 0 until starMap.height) {
-                val count = starMap.getSector(x, y)
+                val count = starMap.getSector(Coords(x, y))
                 max = Math.max(max, count)
             }
         }
@@ -31,7 +32,7 @@ open class GalaxyGeneratorTestBase {
 
         for (x in 0 until starMap.width) {
             for (y in 0 until starMap.height) {
-                val count = starMap.getSector(x, y)
+                val count = starMap.getSector(Coords(x, y))
                 val ratio = Math.min(255, Math.floor(1024 * count.toDouble() / max).toInt())
 
                 val color = Color(ratio, ratio, ratio, 255)
