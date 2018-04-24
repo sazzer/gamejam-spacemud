@@ -120,7 +120,7 @@ class EmpiresGenerator(
                     LOG.trace("Species {} expanding into {}", species, expandTo)
                     myEmpire.setSector(expandTo, myEmpire.getSector(expandTo) + 1)
                 } else {
-                    LOG.debug("Failed to generate any viable sectors to expand into")
+                    LOG.trace("Failed to generate any viable sectors to expand into")
                 }
             }
 

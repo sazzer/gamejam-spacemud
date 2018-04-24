@@ -1,5 +1,6 @@
 package uk.co.grahamcox.space.galaxy.species.generation
 
+import org.apache.commons.lang3.StringUtils
 import org.apache.commons.math3.random.RandomGenerator
 import org.slf4j.LoggerFactory
 import uk.co.grahamcox.space.galaxy.species.Species
@@ -28,7 +29,7 @@ class SpeciesGenerator(
      * @return the generated species
      */
     fun generate(rng: RandomGenerator) : Species {
-        val name = nameGenerator.generate(rng)
+        val name = StringUtils.capitalize(nameGenerator.generate(rng).toLowerCase())
         LOG.debug("Generated species name: {}", name)
 
         // Set up the map with initial values

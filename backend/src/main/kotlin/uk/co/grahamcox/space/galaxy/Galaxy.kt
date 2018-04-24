@@ -8,7 +8,7 @@ import uk.co.grahamcox.space.galaxy.starmap.StarMap
  * Representation of the entire galaxy
  */
 data class Galaxy(
-        private val starMap: StarMap,
+        val starMap: StarMap,
         private val speciesEmpires: Map<Species, Empire>
 ) {
     /** The width of the galaxy */
@@ -19,6 +19,13 @@ data class Galaxy(
 
     /** The list of species in the galaxy */
     val species = speciesEmpires.keys.sortedBy { it.name }
+
+    /**
+     * Get the Empire for the given Species
+     * @param species The species
+     * @return the Empire for this species
+     */
+    fun getEmpire(species: Species) = speciesEmpires[species]
 
     /**
      * Get the details of a single sector

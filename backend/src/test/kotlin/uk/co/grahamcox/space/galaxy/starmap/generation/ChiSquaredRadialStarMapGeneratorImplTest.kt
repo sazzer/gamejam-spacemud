@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
  * Tests for the [ChiSquaredRadialStarMapGeneratorImpl]
  */
 @Disabled
-internal class ChiSquaredRadialStarMapGeneratorImplTest : GalaxyGeneratorTestBase() {
+internal class ChiSquaredRadialStarMapGeneratorImplTest {
     /**
      * Generate a galaxy and render it to a file
      */
@@ -19,7 +19,7 @@ internal class ChiSquaredRadialStarMapGeneratorImplTest : GalaxyGeneratorTestBas
         val galaxy = testSubject.generateGalaxy(Well19937a(), 100, 1000000)
         val galaxyFilename = "/tmp/galaxy-chisquared.png"
 
-        renderGalaxy(galaxy, galaxyFilename)
+        galaxy.render(galaxyFilename)
     }
 
 }

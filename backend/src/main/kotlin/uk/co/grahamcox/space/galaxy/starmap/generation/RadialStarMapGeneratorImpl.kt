@@ -44,7 +44,7 @@ abstract class RadialStarMapGeneratorImpl : StarMapGeneratorImpl() {
                 y = Math.floor((Math.sin(angle) * distance) + halfSize).toInt()
             } while (x >= size || x < 0 || y >= size || y < 0)
 
-            LOG.debug("Star {} - Angle: ({} = {}), Distance: {}, Coords: ({}, {})",
+            LOG.trace("Star {} - Angle: ({} = {}), Distance: {}, Coords: ({}, {})",
                     i, degrees, angle, distance, x, y)
 
             starMap[x][y]++
