@@ -16,7 +16,7 @@
     <logger name="org.apache.tomcat" level="INFO" />
     <logger name="org.hibernate.validator" level="INFO" />
 
-    <root level="DEBUG">
+    <root level="TRACE">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>
