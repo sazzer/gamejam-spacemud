@@ -1,0 +1,10 @@
+CREATE TABLE MarkovChains(
+  markov_chain_id UUID PRIMARY KEY,
+  version UUID NOT NULL,
+  created TIMESTAMP WITH TIME ZONE NOT NULL,
+  updated TIMESTAMP WITH TIME ZONE NOT NULL,
+  name VARCHAR(260) NOT NULL UNIQUE,
+  type VARCHAR(100) NOT NULL,
+  prefix INT NOT NULL,
+  corpus JSONB NOT NULL
+);

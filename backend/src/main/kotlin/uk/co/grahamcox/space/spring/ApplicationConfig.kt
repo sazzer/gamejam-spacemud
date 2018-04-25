@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import uk.co.grahamcox.space.authorization.AuthorizationConfig
+import uk.co.grahamcox.space.generation.markov.MarkovChainConfig
 import uk.co.grahamcox.space.home.HomeController
 import uk.co.grahamcox.space.users.UserConfig
 import uk.co.grahamcox.space.websocket.WebSocketConfig
@@ -20,7 +21,8 @@ import java.time.ZoneId
         WebMvcConfig::class,
         WebSocketConfig::class,
         AuthorizationConfig::class,
-        UserConfig::class
+        UserConfig::class,
+        MarkovChainConfig::class
 )
 class ApplicationConfig {
     /**
