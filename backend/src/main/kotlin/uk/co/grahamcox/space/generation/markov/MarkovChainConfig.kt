@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import uk.co.grahamcox.space.generation.markov.dao.JdbcMarkovChainDaoImpl
 import uk.co.grahamcox.space.generation.markov.dao.MarkovChainDao
 import uk.co.grahamcox.space.generation.markov.rest.MarkovChainController
+import uk.co.grahamcox.space.generation.markov.rest.MarkovChainPageTranslator
 import uk.co.grahamcox.space.generation.markov.rest.MarkovChainTranslator
 import java.time.Clock
 
@@ -20,5 +21,8 @@ class MarkovChainConfig {
             JdbcMarkovChainDaoImpl(clock, jdbcTemplate, objectMapper)
 
     @Bean
-    fun markovChainController(dao: MarkovChainDao) = MarkovChainController(dao, MarkovChainTranslator())
+    fun markovChainController(dao: MarkovChainDao): MarkovChainController {
+        val markovChainTranslator = MarkovChainTranslator()
+        return MarkovChainController(dao, markovChainTranslator, MarkovChainPageTranslator(markovChainTranslator))
+    }
 }

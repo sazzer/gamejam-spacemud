@@ -1,10 +1,14 @@
 package uk.co.grahamcox.space.generation.markov.rest
 
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import uk.co.grahamcox.space.dao.ResourceNotFoundException
 import uk.co.grahamcox.space.generation.markov.MarkovChainId
+import uk.co.grahamcox.space.generation.markov.dao.DuplicateNameException
 import uk.co.grahamcox.space.generation.markov.dao.MarkovChainDao
+import java.net.URI
 
 /**
  * Controller for working with Markov Chain generation
@@ -13,14 +17,40 @@ import uk.co.grahamcox.space.generation.markov.dao.MarkovChainDao
 @RequestMapping(value = ["/api/generation/markovChains"], produces = ["application/hal+json"])
 class MarkovChainController(
         private val markovChainDao: MarkovChainDao,
-        private val markovChainTranslator: MarkovChainTranslator
+        private val markovChainTranslator: MarkovChainTranslator,
+        private val markovChainPageTranslator: MarkovChainPageTranslator
 ) {
+    /**
+     * Exception handler for when the markov chain to be resolved was unknown
+     */
+    @ExceptionHandler(ResourceNotFoundException::class)
+    fun handleUnknownEmail(e: ResourceNotFoundException) = ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.parseMediaType("application/problem+json"))
+            .body(MarkovChainNotFoundProblem(
+                    instance = URI("tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found/unknown-id"),
+                    detail = "Unknown ID: ${e.id.id}"
+            ))
+
+    /**
+     * Exception handler for when the markov chain to be resolved was unknown
+     */
+    @ExceptionHandler(DuplicateNameException::class)
+    fun handleDuplicateName() = ResponseEntity.status(HttpStatus.CONFLICT)
+            .contentType(MediaType.parseMediaType("application/problem+json"))
+            .body(DuplicateMarkovChainProblem(
+                    instance = URI("tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate/duplicate-name"),
+                    detail = "Duplicate name"
+            ))
+
     /**
      * Generate a list of all the Markov Chains
      */
     @RequestMapping(method = [RequestMethod.GET])
-    fun list() {
-        TODO()
+    fun list(): ResponseEntity<MarkovChainPageModel>? {
+        val chains = markovChainDao.list()
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(markovChainPageTranslator.translate(chains))
     }
 
     /**
