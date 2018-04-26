@@ -22,7 +22,7 @@ data class Response<T>(val responseEntity: ResponseEntity<T>) {
     /** The JsonPath Parsing Context */
     val bodyContext = JsonPath
             .using(Configuration.defaultConfiguration().addOptions(Option.DEFAULT_PATH_LEAF_TO_NULL))
-            .parse(body)
+            .parse(body ?: emptyMap<String, Any?>())
     /**
      * The value from the provided JSON Path in the body
      * @param path The JSON Path
