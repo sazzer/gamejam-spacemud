@@ -11,9 +11,10 @@ import uk.co.grahamcox.space.model.Resource
 interface MarkovChainDao {
     /**
      * Get a list of all the Markov Chains in the system
+     * @param filters The filters to apply
      * @return the list of Markov Chains
      */
-    fun list() : Page<MarkovChainId, MarkovChainData>
+    fun list(filters: MarkovChainFilters = MarkovChainFilters()) : Page<MarkovChainId, MarkovChainData>
 
     /**
      * Get a single Markov Chain by ID

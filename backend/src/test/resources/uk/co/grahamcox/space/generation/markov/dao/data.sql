@@ -33,7 +33,7 @@ INSERT INTO markovchains(
   '2018-03-28T08:29:00Z',
   '2018-03-28T09:29:00Z',
   'Second Markov Chain',
-  'species',
+  'planets',
   2,
   '["ab", "bc", "cd"]'::jsonb
 );

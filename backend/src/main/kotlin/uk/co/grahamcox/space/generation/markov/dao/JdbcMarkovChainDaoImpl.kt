@@ -30,12 +30,26 @@ class JdbcMarkovChainDaoImpl(
 
     /**
      * Get a list of all the Markov Chains in the system
+     * @param filters The filters to apply
      * @return the list of Markov Chains
      */
-    override fun list(): Page<MarkovChainId, MarkovChainData> {
-        LOG.debug("Loading all markov chains")
+    override fun list(filters: MarkovChainFilters): Page<MarkovChainId, MarkovChainData> {
+        LOG.debug("Loading all markov chains: {}", filters)
 
-        val chains = jdbcTemplate.query("SELECT * FROM markovchains ORDER BY name") { rs, _ -> parseRecord(rs) }
+        val clauses = listOf(
+                filters.type?.let { "type = :type" }
+        ).filterNotNull()
+
+        val sql = StringBuilder()
+        sql.append("SELECT * FROM markovchains")
+        if (clauses.isNotEmpty()) {
+            sql.append(" WHERE ")
+            sql.append(clauses.joinToString(separator = " AND "))
+        }
+        sql.append(" ORDER BY NAME")
+        val chains = jdbcTemplate.query(sql.toString(), mapOf(
+                "type" to filters.type
+        )) { rs, _ -> parseRecord(rs) }
         return Page(chains, chains.size)
     }
 

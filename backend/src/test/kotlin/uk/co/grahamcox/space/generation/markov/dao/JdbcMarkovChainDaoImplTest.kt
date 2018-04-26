@@ -35,6 +35,8 @@ internal class JdbcMarkovChainDaoImplTest : SpringTestBase() {
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(2, page.totalCount) },
 
+                Executable { Assertions.assertEquals(2, page.data.size) },
+
                 Executable { Assertions.assertEquals(EXISTING_ID, page.data[0].identity.id) },
                 Executable { Assertions.assertEquals("11111111-1111-1111-1111-111111111111", page.data[0].identity.version) },
                 Executable { Assertions.assertEquals(Instant.parse("2018-03-28T08:29:00Z"), page.data[0].identity.created) },
@@ -49,12 +51,35 @@ internal class JdbcMarkovChainDaoImplTest : SpringTestBase() {
                 Executable { Assertions.assertEquals(Instant.parse("2018-03-28T08:29:00Z"), page.data[1].identity.created) },
                 Executable { Assertions.assertEquals(Instant.parse("2018-03-28T09:29:00Z"), page.data[1].identity.updated) },
                 Executable { Assertions.assertEquals("Second Markov Chain", page.data[1].data.name) },
-                Executable { Assertions.assertEquals("species", page.data[1].data.type) },
+                Executable { Assertions.assertEquals("planets", page.data[1].data.type) },
                 Executable { Assertions.assertEquals(2, page.data[1].data.prefix) },
                 Executable { Assertions.assertEquals(listOf("ab", "bc", "cd"), page.data[1].data.corpus) }
         )
-
     }
+
+    /**
+     * Test listing all of the markov chains
+     */
+    @Test
+    fun listMarkovChainsFilteredType() {
+        val page = testSubject.list(MarkovChainFilters(type = "species"))
+
+        Assertions.assertAll(
+                Executable { Assertions.assertEquals(1, page.totalCount) },
+
+                Executable { Assertions.assertEquals(1, page.data.size) },
+
+                Executable { Assertions.assertEquals(EXISTING_ID, page.data[0].identity.id) },
+                Executable { Assertions.assertEquals("11111111-1111-1111-1111-111111111111", page.data[0].identity.version) },
+                Executable { Assertions.assertEquals(Instant.parse("2018-03-28T08:29:00Z"), page.data[0].identity.created) },
+                Executable { Assertions.assertEquals(Instant.parse("2018-03-28T09:29:00Z"), page.data[0].identity.updated) },
+                Executable { Assertions.assertEquals("Example Markov Chain", page.data[0].data.name) },
+                Executable { Assertions.assertEquals("species", page.data[0].data.type) },
+                Executable { Assertions.assertEquals(2, page.data[0].data.prefix) },
+                Executable { Assertions.assertEquals(listOf("ab", "bc", "cd"), page.data[0].data.corpus) }
+        )
+    }
+
     /**
      * Test getting an unknown Markov Chain by ID
      */
