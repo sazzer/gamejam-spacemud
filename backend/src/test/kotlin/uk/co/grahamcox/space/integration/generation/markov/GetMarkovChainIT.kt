@@ -14,7 +14,7 @@ import uk.co.grahamcox.space.spring.SpringTestBase
 class GetMarkovChainIT : SpringTestBase() {
     @Test
     fun getSingleChain() {
-        val response = requester.get("/api/generation/markovChains/00000000-0000-0000-0000-000000000001")
+        val response = requester.get("/api/empire/markovChains/00000000-0000-0000-0000-000000000001")
 
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(HttpStatus.OK, response.statusCode) },
@@ -22,7 +22,7 @@ class GetMarkovChainIT : SpringTestBase() {
                 Executable { jsonMatch("""{
                   "_links" : {
                     "self" : {
-                      "href" : "${uriBuilder().path("/api/generation/markovChains/00000000-0000-0000-0000-000000000001").toUriString()}",
+                      "href" : "${uriBuilder().path("/api/empire/markovChains/00000000-0000-0000-0000-000000000001").toUriString()}",
                       "templated" : false,
                       "type" : "application/hal+json"
                     }
@@ -42,16 +42,16 @@ class GetMarkovChainIT : SpringTestBase() {
 
     @Test
     fun getUnknownChain() {
-        val response = requester.get("/api/generation/markovChains/00000000-0000-0000-0000-000000000000")
+        val response = requester.get("/api/empire/markovChains/00000000-0000-0000-0000-000000000000")
 
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(HttpStatus.NOT_FOUND, response.statusCode) },
 
                 Executable { jsonMatch("""{
-                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found/unknown-id",
+                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found/unknown-id",
                   "detail" : "Unknown ID: 00000000-0000-0000-0000-000000000000",
                   "status" : 404,
-                  "type" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found",
+                  "type" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found",
                   "title" : "Markov Chain not found"
                 }""", response.body) }
         )

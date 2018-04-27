@@ -13,7 +13,7 @@ import uk.co.grahamcox.space.spring.SpringTestBase
 class ListMarkovChainsIT : SpringTestBase() {
     @Test
     fun listNoChains() {
-        val response = requester.get("/api/generation/markovChains")
+        val response = requester.get("/api/empire/markovChains")
 
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(HttpStatus.OK, response.statusCode) },
@@ -21,7 +21,7 @@ class ListMarkovChainsIT : SpringTestBase() {
                 Executable { jsonMatch("""{
                   "_links" : {
                     "self" : {
-                      "href" : "${uriBuilder().path("/api/generation/markovChains/").toUriString()}",
+                      "href" : "${uriBuilder().path("/api/empire/markovChains/").toUriString()}",
                       "templated" : false,
                       "type" : "application/hal+json"
                     }
@@ -37,7 +37,7 @@ class ListMarkovChainsIT : SpringTestBase() {
     @Test
     @Sql("classpath:uk/co/grahamcox/space/integration/generation/markov/data.sql")
     fun listChains() {
-        val response = requester.get("/api/generation/markovChains")
+        val response = requester.get("/api/empire/markovChains")
 
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(HttpStatus.OK, response.statusCode) },
@@ -45,7 +45,7 @@ class ListMarkovChainsIT : SpringTestBase() {
                 Executable { jsonMatch("""{
                   "_links" : {
                     "self" : {
-                      "href" : "${uriBuilder().path("/api/generation/markovChains/").toUriString()}",
+                      "href" : "${uriBuilder().path("/api/empire/markovChains/").toUriString()}",
                       "templated" : false,
                       "type" : "application/hal+json"
                     }
@@ -54,7 +54,7 @@ class ListMarkovChainsIT : SpringTestBase() {
                     "chains" : [ {
                       "_links" : {
                         "self" : {
-                          "href" : "${uriBuilder().path("/api/generation/markovChains/00000000-0000-0000-0000-000000000001").toUriString()}",
+                          "href" : "${uriBuilder().path("/api/empire/markovChains/00000000-0000-0000-0000-000000000001").toUriString()}",
                           "templated" : false,
                           "type" : "application/hal+json"
                         }
@@ -71,7 +71,7 @@ class ListMarkovChainsIT : SpringTestBase() {
                     }, {
                       "_links" : {
                         "self" : {
-                          "href" : "${uriBuilder().path("/api/generation/markovChains/00000000-0000-0000-0000-000000000002").toUriString()}",
+                          "href" : "${uriBuilder().path("/api/empire/markovChains/00000000-0000-0000-0000-000000000002").toUriString()}",
                           "templated" : false,
                           "type" : "application/hal+json"
                         }
