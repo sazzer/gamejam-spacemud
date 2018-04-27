@@ -3,8 +3,7 @@ package uk.co.grahamcox.space.generation.empire
 import org.apache.commons.math3.random.RandomGenerator
 import org.slf4j.LoggerFactory
 import uk.co.grahamcox.space.galaxy.Coords
-import uk.co.grahamcox.space.galaxy.empire.Empire
-import uk.co.grahamcox.space.galaxy.starmap.StarMap
+import uk.co.grahamcox.space.generation.starmap.StarMap
 
 /**
  * Generate the sector that an empire should start in

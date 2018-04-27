@@ -5,7 +5,7 @@ import io.mockk.mockk
 import org.apache.commons.math3.random.Well19937c
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import uk.co.grahamcox.space.galaxy.species.SpeciesTraits
+import uk.co.grahamcox.space.species.SpeciesTraits
 import uk.co.grahamcox.space.generation.markov.MarkovChainGenerator
 
 /**

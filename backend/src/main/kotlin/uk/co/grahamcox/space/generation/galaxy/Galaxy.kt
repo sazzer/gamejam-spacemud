@@ -1,8 +1,9 @@
-package uk.co.grahamcox.space.galaxy
+package uk.co.grahamcox.space.generation.galaxy
 
-import uk.co.grahamcox.space.galaxy.empire.Empire
-import uk.co.grahamcox.space.galaxy.species.Species
-import uk.co.grahamcox.space.galaxy.starmap.StarMap
+import uk.co.grahamcox.space.galaxy.Coords
+import uk.co.grahamcox.space.generation.empire.Empire
+import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.generation.starmap.StarMap
 
 /**
  * Representation of the entire galaxy

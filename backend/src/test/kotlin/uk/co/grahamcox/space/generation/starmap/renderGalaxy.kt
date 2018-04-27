@@ -1,7 +1,6 @@
 package uk.co.grahamcox.space.generation.starmap
 
 import uk.co.grahamcox.space.galaxy.Coords
-import uk.co.grahamcox.space.galaxy.starmap.StarMap
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File

@@ -1,7 +1,6 @@
 package uk.co.grahamcox.space.generation.empire
 
 import uk.co.grahamcox.space.galaxy.Coords
-import uk.co.grahamcox.space.galaxy.empire.Empire
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File

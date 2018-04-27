@@ -2,8 +2,8 @@ package uk.co.grahamcox.space.generation.empire
 
 import org.apache.commons.math3.random.Well19937c
 import org.junit.jupiter.api.Test
-import uk.co.grahamcox.space.galaxy.species.Species
-import uk.co.grahamcox.space.galaxy.species.SpeciesTraits
+import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.species.SpeciesTraits
 
 /**
  * Tests for the [EmpireSizeGenerator]

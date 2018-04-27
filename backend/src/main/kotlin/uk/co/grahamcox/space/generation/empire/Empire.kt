@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.galaxy.empire
+package uk.co.grahamcox.space.generation.empire
 
 import uk.co.grahamcox.space.galaxy.Coords
 

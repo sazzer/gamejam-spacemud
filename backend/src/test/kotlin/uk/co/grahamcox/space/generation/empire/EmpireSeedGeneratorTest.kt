@@ -4,8 +4,7 @@ import org.apache.commons.math3.random.Well19937c
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import uk.co.grahamcox.space.galaxy.Coords
-import uk.co.grahamcox.space.galaxy.empire.Empire
-import uk.co.grahamcox.space.galaxy.starmap.StarMap
+import uk.co.grahamcox.space.generation.starmap.StarMap
 
 internal class EmpireSeedGeneratorTest {
     @Test

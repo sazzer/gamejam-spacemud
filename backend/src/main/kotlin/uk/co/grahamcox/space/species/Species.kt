@@ -1,4 +1,4 @@
-package uk.co.grahamcox.space.galaxy.species
+package uk.co.grahamcox.space.species
 
 /**
  * Details representing an entire Species

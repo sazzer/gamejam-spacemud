@@ -2,7 +2,6 @@ package uk.co.grahamcox.space.generation.galaxy
 
 import org.apache.commons.math3.distribution.NormalDistribution
 import org.slf4j.LoggerFactory
-import uk.co.grahamcox.space.galaxy.Galaxy
 import uk.co.grahamcox.space.generation.empire.EmpiresGenerator
 import uk.co.grahamcox.space.generation.species.SpeciesGenerator
 import uk.co.grahamcox.space.generation.starmap.StarMapGenerator

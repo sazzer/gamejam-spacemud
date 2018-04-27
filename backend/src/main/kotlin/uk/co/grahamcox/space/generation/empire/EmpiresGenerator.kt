@@ -3,11 +3,9 @@ package uk.co.grahamcox.space.generation.empire
 import org.apache.commons.math3.random.RandomGenerator
 import org.slf4j.LoggerFactory
 import uk.co.grahamcox.space.galaxy.Coords
-import uk.co.grahamcox.space.galaxy.empire.Empire
-import uk.co.grahamcox.space.galaxy.empire.MutableEmpire
-import uk.co.grahamcox.space.galaxy.species.Species
-import uk.co.grahamcox.space.galaxy.species.SpeciesTraits
-import uk.co.grahamcox.space.galaxy.starmap.StarMap
+import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.species.SpeciesTraits
+import uk.co.grahamcox.space.generation.starmap.StarMap
 
 /**
  * Generate the empires for a set of species
