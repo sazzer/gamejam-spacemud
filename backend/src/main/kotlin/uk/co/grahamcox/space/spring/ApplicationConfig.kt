@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import uk.co.grahamcox.space.authorization.AuthorizationConfig
+import uk.co.grahamcox.space.galaxy.GalaxyConfig
 import uk.co.grahamcox.space.generation.empire.EmpireGeneratorConfig
 import uk.co.grahamcox.space.generation.galaxy.GalaxyGeneratorConfig
 import uk.co.grahamcox.space.generation.species.SpeciesGeneratorConfig
@@ -30,7 +31,8 @@ import java.time.ZoneId
         StarMapGeneratorConfig::class,
         SpeciesGeneratorConfig::class,
         EmpireGeneratorConfig::class,
-        GalaxyGeneratorConfig::class
+        GalaxyGeneratorConfig::class,
+        GalaxyConfig::class
 )
 class ApplicationConfig {
     /**
