@@ -1,6 +1,7 @@
 package uk.co.grahamcox.space.generation.markov
 
 import uk.co.grahamcox.space.generation.markov.dao.MarkovChainDao
+import uk.co.grahamcox.space.generation.markov.dao.MarkovChainFilters
 import uk.co.grahamcox.space.model.Resource
 
 /**
@@ -16,6 +17,19 @@ class MarkovChainBuilder(private val markovChainDao: MarkovChainDao) {
     fun buildSingleChain(id: MarkovChainId) : MarkovChainGenerator {
         val config = markovChainDao.getById(id)
         return build(config)
+    }
+
+    /**
+     * Build a compelx Markov Chain Generator, that uses every configuration of a given type
+     * @param type The type of Markov Chain to load
+     * @return the Markov Chain Generator
+     */
+    fun buildComplexChain(type: String) : MarkovChainGenerator {
+        val markovChains = markovChainDao.list(MarkovChainFilters(type = type))
+
+        return MultipleMarkovChainGenerator(
+                markovChains.data.map(this::build)
+        )
     }
 
     /**
