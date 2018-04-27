@@ -68,7 +68,7 @@ internal class GalaxyGeneratorIT {
                 empiresGenerator
         )
 
-        val galaxy = testSubject.generate(Rng("MyGalaxy"), 100, 1000000, 10, 0.1)
+        val galaxy = testSubject.generate("MyGalaxy", 100, 1000000, 10, 0.1)
 
         galaxy.starMap.render("/tmp/galaxy.png")
         galaxy.species.forEach { species ->

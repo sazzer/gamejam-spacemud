@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import uk.co.grahamcox.space.authorization.AuthorizationConfig
+import uk.co.grahamcox.space.galaxy.empire.generation.EmpireGeneratorConfig
+import uk.co.grahamcox.space.galaxy.generation.GalaxyGeneratorConfig
+import uk.co.grahamcox.space.galaxy.species.generation.SpeciesGeneratorConfig
+import uk.co.grahamcox.space.galaxy.starmap.generation.StarMapGeneratorConfig
 import uk.co.grahamcox.space.generation.markov.MarkovChainConfig
 import uk.co.grahamcox.space.home.HomeController
 import uk.co.grahamcox.space.users.UserConfig
@@ -22,7 +26,11 @@ import java.time.ZoneId
         WebSocketConfig::class,
         AuthorizationConfig::class,
         UserConfig::class,
-        MarkovChainConfig::class
+        MarkovChainConfig::class,
+        StarMapGeneratorConfig::class,
+        SpeciesGeneratorConfig::class,
+        EmpireGeneratorConfig::class,
+        GalaxyGeneratorConfig::class
 )
 class ApplicationConfig {
     /**

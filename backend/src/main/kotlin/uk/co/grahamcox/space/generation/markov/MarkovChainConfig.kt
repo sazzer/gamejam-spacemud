@@ -21,6 +21,9 @@ class MarkovChainConfig {
             JdbcMarkovChainDaoImpl(clock, jdbcTemplate, objectMapper)
 
     @Bean
+    fun markovChainBuilder(dao: MarkovChainDao) = MarkovChainBuilder(dao)
+
+    @Bean
     fun markovChainController(dao: MarkovChainDao): MarkovChainController {
         val markovChainTranslator = MarkovChainTranslator()
         return MarkovChainController(dao, markovChainTranslator, MarkovChainPageTranslator(markovChainTranslator))
