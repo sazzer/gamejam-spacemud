@@ -13,7 +13,6 @@ import uk.co.grahamcox.space.galaxy.starmap.StarMap
  * Generate the empires for a set of species
  */
 class EmpiresGenerator(
-        private val populationDensity: Double,
         private val empireSizeGenerator: EmpireSizeGenerator,
         private val empireSeedGenerator: EmpireSeedGenerator
 ) {
@@ -25,10 +24,11 @@ class EmpiresGenerator(
      * Actually generate the empires for the given speciesList
      * @param rng The RNG to use
      * @param starMap The star map to populate
-     * @param speciesList The speciesList to generate empires for
+     * @param speciesList The species to generate empires for
+     * @param populationDensity The population density to generate
      * @return the map of Species to their Empires
      */
-    fun generate(rng: RandomGenerator, starMap: StarMap, speciesList: List<Species>) : Map<Species, Empire> {
+    fun generate(rng: RandomGenerator, starMap: StarMap, speciesList: List<Species>, populationDensity: Double) : Map<Species, Empire> {
         // Firstly we generate a whole bunch of empty empires
         val empireMaps = speciesList.map { species ->
             val empireStarMap = Array(starMap.width) {

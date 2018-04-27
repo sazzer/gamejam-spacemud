@@ -30,11 +30,9 @@ internal class EmpiresGeneratorTest {
                 Species(name = "Species-5", traits = mapOf())
         )
 
-        val testSubject = EmpiresGenerator(0.1,
-                EmpireSizeGenerator(),
-                EmpireSeedGenerator())
+        val testSubject = EmpiresGenerator(EmpireSizeGenerator(), EmpireSeedGenerator())
 
-        val empires = testSubject.generate(Well19937c(), StarMap(starMap), speciesList)
+        val empires = testSubject.generate(Well19937c(), StarMap(starMap), speciesList, 0.1)
 
         empires.forEach { species, empire ->
             System.out.println(species)

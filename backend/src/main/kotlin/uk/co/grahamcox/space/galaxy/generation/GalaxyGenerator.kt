@@ -27,8 +27,10 @@ class GalaxyGenerator(
      * @param rng The RNG to use for the generation
      * @param size The size of the galaxy
      * @param numSpecies The number of species in the galaxy
+     * @param populationDensity The population density to generate
+     * @return the generated galaxy
      */
-    fun generate(rng: Rng, size: Int, stars: Int, numSpecies: Int): Galaxy {
+    fun generate(rng: Rng, size: Int, stars: Int, numSpecies: Int, populationDensity: Double): Galaxy {
         val galaxyRng = rng.getRng("Galaxy")
 
         val sizeDistribution = NormalDistribution(galaxyRng, size.toDouble(), size.toDouble() / 20)
@@ -47,7 +49,7 @@ class GalaxyGenerator(
         val species = (0 until realNumSpecies).map {
             speciesGenerator.generate(rng.getRng("Species $it"))
         }
-        val empires = empiresGenerator.generate(rng.getRng("Empires"), starMap, species)
+        val empires = empiresGenerator.generate(rng.getRng("Empires"), starMap, species, populationDensity)
 
         return Galaxy(starMap, empires)
     }
