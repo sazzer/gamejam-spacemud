@@ -8,6 +8,7 @@ import uk.co.grahamcox.space.generation.empire.EmpiresGenerator
 import uk.co.grahamcox.space.generation.galaxy.rest.GalaxyGeneratorController
 import uk.co.grahamcox.space.generation.species.SpeciesGeneratorBuilder
 import uk.co.grahamcox.space.generation.starmap.StarMapGenerator
+import uk.co.grahamcox.space.species.dao.SpeciesDao
 
 /**
  * Spring config for Galaxy Generation
@@ -22,7 +23,7 @@ class GalaxyGeneratorConfig {
     ) = GalaxyGeneratorBuilder(starMapGenerator, empiresGenerator, speciesGeneratorBuilder)
 
     @Bean
-    fun galaxyPersister(galaxyDao: GalaxyDao) = GalaxyPersister(galaxyDao)
+    fun galaxyPersister(galaxyDao: GalaxyDao, speciesDao: SpeciesDao) = GalaxyPersister(galaxyDao, speciesDao)
 
     @Bean
     fun galaxyGeneratorController(galaxyGeneratorBuilder: GalaxyGeneratorBuilder,
