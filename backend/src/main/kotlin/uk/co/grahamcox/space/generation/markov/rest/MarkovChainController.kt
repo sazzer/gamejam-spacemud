@@ -14,7 +14,7 @@ import java.net.URI
  * Controller for working with Markov Chain empire
  */
 @RestController
-@RequestMapping(value = ["/api/empire/markovChains"], produces = ["application/hal+json"])
+@RequestMapping(value = ["/api/generation/markovChains"], produces = ["application/hal+json"])
 class MarkovChainController(
         private val markovChainDao: MarkovChainDao,
         private val markovChainTranslator: MarkovChainTranslator,
@@ -27,7 +27,7 @@ class MarkovChainController(
     fun handleUnknownEmail(e: ResourceNotFoundException) = ResponseEntity.status(HttpStatus.NOT_FOUND)
             .contentType(MediaType.parseMediaType("application/problem+json"))
             .body(MarkovChainNotFoundProblem(
-                    instance = URI("tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found/unknown-id"),
+                    instance = URI("tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found/unknown-id"),
                     detail = "Unknown ID: ${e.id.id}"
             ))
 
@@ -38,7 +38,7 @@ class MarkovChainController(
     fun handleDuplicateName() = ResponseEntity.status(HttpStatus.CONFLICT)
             .contentType(MediaType.parseMediaType("application/problem+json"))
             .body(DuplicateMarkovChainProblem(
-                    instance = URI("tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/duplicate/duplicate-name"),
+                    instance = URI("tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate/duplicate-name"),
                     detail = "Duplicate name"
             ))
 

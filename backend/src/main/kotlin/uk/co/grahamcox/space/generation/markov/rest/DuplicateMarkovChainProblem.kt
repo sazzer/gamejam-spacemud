@@ -10,7 +10,7 @@ import java.net.URI
  * @param detail A human-readable explanation specific to this occurrence of the problem
  */
 class DuplicateMarkovChainProblem(instance: URI?, detail: String?) : Problem(
-        type = URI("tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/duplicate"),
+        type = URI("tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate"),
         title = "Duplicate Markov Chain details",
         statusCode = HttpStatus.CONFLICT,
         instance = instance,

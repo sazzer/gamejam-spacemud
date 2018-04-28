@@ -14,20 +14,20 @@ import uk.co.grahamcox.space.spring.SpringTestBase
 class DeleteMarkovChainIT : SpringTestBase() {
     @Test
     fun deleteSingleChain() {
-        val deleteResponse = requester.delete("/api/empire/markovChains/00000000-0000-0000-0000-000000000001")
+        val deleteResponse = requester.delete("/api/generation/markovChains/00000000-0000-0000-0000-000000000001")
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, deleteResponse.statusCode)
 
-        val getResponse = requester.get("/api/empire/markovChains/00000000-0000-0000-0000-000000000001")
+        val getResponse = requester.get("/api/generation/markovChains/00000000-0000-0000-0000-000000000001")
 
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(HttpStatus.NOT_FOUND, getResponse.statusCode) },
 
                 Executable { jsonMatch("""{
-                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found/unknown-id",
+                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found/unknown-id",
                   "detail" : "Unknown ID: 00000000-0000-0000-0000-000000000001",
                   "status" : 404,
-                  "type" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found",
+                  "type" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found",
                   "title" : "Markov Chain not found"
                 }""", getResponse.body) }
         )
@@ -35,7 +35,7 @@ class DeleteMarkovChainIT : SpringTestBase() {
 
     @Test
     fun deleteUnknownChain() {
-        val deleteResponse = requester.delete("/api/empire/markovChains/00000000-0000-0000-0000-000000000000")
+        val deleteResponse = requester.delete("/api/generation/markovChains/00000000-0000-0000-0000-000000000000")
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT, deleteResponse.statusCode)
     }

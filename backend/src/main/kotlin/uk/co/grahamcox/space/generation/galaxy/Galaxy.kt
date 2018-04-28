@@ -9,6 +9,7 @@ import uk.co.grahamcox.space.generation.starmap.StarMap
  * Representation of the entire galaxy
  */
 data class Galaxy(
+        val name: String,
         val starMap: StarMap,
         private val speciesEmpires: Map<Species, Empire>
 ) {

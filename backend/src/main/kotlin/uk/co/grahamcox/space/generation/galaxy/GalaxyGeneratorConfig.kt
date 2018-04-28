@@ -2,6 +2,8 @@ package uk.co.grahamcox.space.generation.galaxy
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import uk.co.grahamcox.space.galaxy.dao.GalaxyDao
+import uk.co.grahamcox.space.generation.GalaxyPersister
 import uk.co.grahamcox.space.generation.empire.EmpiresGenerator
 import uk.co.grahamcox.space.generation.galaxy.rest.GalaxyGeneratorController
 import uk.co.grahamcox.space.generation.species.SpeciesGeneratorBuilder
@@ -20,6 +22,10 @@ class GalaxyGeneratorConfig {
     ) = GalaxyGeneratorBuilder(starMapGenerator, empiresGenerator, speciesGeneratorBuilder)
 
     @Bean
-    fun galaxyGeneratorController(galaxyGeneratorBuilder: GalaxyGeneratorBuilder) =
-            GalaxyGeneratorController(galaxyGeneratorBuilder)
+    fun galaxyPersister(galaxyDao: GalaxyDao) = GalaxyPersister(galaxyDao)
+
+    @Bean
+    fun galaxyGeneratorController(galaxyGeneratorBuilder: GalaxyGeneratorBuilder,
+                                  galaxyPersister: GalaxyPersister) =
+            GalaxyGeneratorController(galaxyGeneratorBuilder, galaxyPersister)
 }

@@ -10,7 +10,7 @@ import java.net.URI
  * @param detail A human-readable explanation specific to this occurrence of the problem
  */
 class MarkovChainNotFoundProblem(instance: URI?, detail: String?) : Problem(
-        type = URI("tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found"),
+        type = URI("tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found"),
         title = "Markov Chain not found",
         statusCode = HttpStatus.NOT_FOUND,
         instance = instance,

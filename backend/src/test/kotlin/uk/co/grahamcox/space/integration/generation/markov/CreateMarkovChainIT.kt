@@ -14,7 +14,7 @@ import uk.co.grahamcox.space.spring.SpringTestBase
 class CreateMarkovChainIT : SpringTestBase() {
     @Test
     fun createChain() {
-        val updateResponse = requester.post("/api/empire/markovChains",
+        val updateResponse = requester.post("/api/generation/markovChains",
                 mapOf(
                         "name" to "New Name",
                         "type" to "planets",
@@ -56,7 +56,7 @@ class CreateMarkovChainIT : SpringTestBase() {
 
     @Test
     fun createChainDuplicateName() {
-        val response = requester.post("/api/empire/markovChains",
+        val response = requester.post("/api/generation/markovChains",
                 mapOf(
                         "name" to "Second Markov Chain",
                         "type" to "species",
@@ -68,10 +68,10 @@ class CreateMarkovChainIT : SpringTestBase() {
                 Executable { Assertions.assertEquals(HttpStatus.CONFLICT, response.statusCode) },
 
                 Executable { jsonMatch("""{
-                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/duplicate/duplicate-name",
+                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate/duplicate-name",
                   "detail" : "Duplicate name",
                   "status" : 409,
-                  "type" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/duplicate",
+                  "type" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate",
                   "title" : "Duplicate Markov Chain details"
                 }""", response.body) }
         )

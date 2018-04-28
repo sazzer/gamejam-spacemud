@@ -51,6 +51,6 @@ class GalaxyGenerator(
         }
         val empires = empiresGenerator.generate(rng.getRng("Empires"), starMap, species, populationDensity)
 
-        return Galaxy(starMap, empires)
+        return Galaxy(name, starMap, empires)
     }
 }

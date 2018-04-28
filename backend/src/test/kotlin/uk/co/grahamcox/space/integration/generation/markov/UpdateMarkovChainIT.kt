@@ -14,7 +14,7 @@ import uk.co.grahamcox.space.spring.SpringTestBase
 class UpdateMarkovChainIT : SpringTestBase() {
     @Test
     fun updateSingleChain() {
-        val updateResponse = requester.put("/api/empire/markovChains/00000000-0000-0000-0000-000000000001",
+        val updateResponse = requester.put("/api/generation/markovChains/00000000-0000-0000-0000-000000000001",
                 mapOf(
                         "name" to "New Name",
                         "type" to "planets",
@@ -31,7 +31,7 @@ class UpdateMarkovChainIT : SpringTestBase() {
                 Executable { jsonMatch("""{
                   "_links" : {
                     "self" : {
-                      "href" : "${uriBuilder().path("/api/empire/markovChains/00000000-0000-0000-0000-000000000001").toUriString()}",
+                      "href" : "${uriBuilder().path("/api/generation/markovChains/00000000-0000-0000-0000-000000000001").toUriString()}",
                       "templated" : false,
                       "type" : "application/hal+json"
                     }
@@ -48,7 +48,7 @@ class UpdateMarkovChainIT : SpringTestBase() {
                 }""", updateResponse.body) }
         )
 
-        val getResponse = requester.get("/api/empire/markovChains/00000000-0000-0000-0000-000000000001")
+        val getResponse = requester.get("/api/generation/markovChains/00000000-0000-0000-0000-000000000001")
 
         Assertions.assertAll(
                 Executable { Assertions.assertEquals(HttpStatus.OK, getResponse.statusCode) },
@@ -59,7 +59,7 @@ class UpdateMarkovChainIT : SpringTestBase() {
 
     @Test
     fun updateUnknownChain() {
-        val response = requester.put("/api/empire/markovChains/00000000-0000-0000-0000-000000000000",
+        val response = requester.put("/api/generation/markovChains/00000000-0000-0000-0000-000000000000",
                 mapOf(
                         "name" to "New Name",
                         "type" to "species",
@@ -71,10 +71,10 @@ class UpdateMarkovChainIT : SpringTestBase() {
                 Executable { Assertions.assertEquals(HttpStatus.NOT_FOUND, response.statusCode) },
 
                 Executable { jsonMatch("""{
-                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found/unknown-id",
+                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found/unknown-id",
                   "detail" : "Unknown ID: 00000000-0000-0000-0000-000000000000",
                   "status" : 404,
-                  "type" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/not-found",
+                  "type" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/not-found",
                   "title" : "Markov Chain not found"
                 }""", response.body) }
         )
@@ -82,7 +82,7 @@ class UpdateMarkovChainIT : SpringTestBase() {
 
     @Test
     fun updateChainDuplicateName() {
-        val response = requester.put("/api/empire/markovChains/00000000-0000-0000-0000-000000000001",
+        val response = requester.put("/api/generation/markovChains/00000000-0000-0000-0000-000000000001",
                 mapOf(
                         "name" to "Second Markov Chain",
                         "type" to "species",
@@ -94,10 +94,10 @@ class UpdateMarkovChainIT : SpringTestBase() {
                 Executable { Assertions.assertEquals(HttpStatus.CONFLICT, response.statusCode) },
 
                 Executable { jsonMatch("""{
-                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/duplicate/duplicate-name",
+                  "instance" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate/duplicate-name",
                   "detail" : "Duplicate name",
                   "status" : 409,
-                  "type" : "tag:grahamcox.co.uk,2018,spacemud/empire/markov_chains/problems/duplicate",
+                  "type" : "tag:grahamcox.co.uk,2018,spacemud/generation/markov_chains/problems/duplicate",
                   "title" : "Duplicate Markov Chain details"
                 }""", response.body) }
         )
