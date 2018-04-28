@@ -9,8 +9,9 @@ CREATE TABLE Sectors(
   stars INT NOT NULL,
 
   CONSTRAINT fk_sector_galaxy FOREIGN KEY (galaxy_id) REFERENCES Galaxies (galaxy_id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT ck_sector_x CHECK (x > 0),
-  CONSTRAINT ck_sector_y CHECK (y > 0),
-  CONSTRAINT ck_sector_stars CHECK (stars > 0)
+  CONSTRAINT ck_sector_x CHECK (x >= 0),
+  CONSTRAINT ck_sector_y CHECK (y >= 0),
+  CONSTRAINT ck_sector_stars CHECK (stars >= 0),
+  CONSTRAINT uk_sector_coords UNIQUE (galaxy_id, x, y)
 );
 
