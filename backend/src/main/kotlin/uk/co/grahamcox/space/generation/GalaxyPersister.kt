@@ -1,11 +1,14 @@
 package uk.co.grahamcox.space.generation
 
 import org.springframework.transaction.annotation.Transactional
+import uk.co.grahamcox.space.galaxy.Coords
 import uk.co.grahamcox.space.galaxy.GalaxyData
 import uk.co.grahamcox.space.galaxy.GalaxyId
 import uk.co.grahamcox.space.galaxy.dao.GalaxyDao
 import uk.co.grahamcox.space.generation.galaxy.Galaxy
 import uk.co.grahamcox.space.model.Resource
+import uk.co.grahamcox.space.sector.SectorData
+import uk.co.grahamcox.space.sector.dao.SectorDao
 import uk.co.grahamcox.space.species.SpeciesData
 import uk.co.grahamcox.space.species.SpeciesTraits
 import uk.co.grahamcox.space.species.dao.SpeciesDao
@@ -15,7 +18,8 @@ import uk.co.grahamcox.space.species.dao.SpeciesDao
  */
 open class GalaxyPersister(
         private val galaxyDao: GalaxyDao,
-        private val speciesDao: SpeciesDao
+        private val speciesDao: SpeciesDao,
+        private val sectorDao: SectorDao
 ) {
     /**
      * Persist the galaxy to the database
@@ -38,6 +42,16 @@ open class GalaxyPersister(
                 galaxyId = created.identity.id
         )}.forEach { species -> speciesDao.create(species) }
 
+        for (x in 0 until galaxy.width) {
+            for (y in 0 until galaxy.height) {
+                sectorDao.create(SectorData(
+                        galaxy = created.identity.id,
+                        x = x,
+                        y = y,
+                        stars = galaxy.starMap.getSector(Coords(x, y))
+                ))
+            }
+        }
         return created
     }
 }
