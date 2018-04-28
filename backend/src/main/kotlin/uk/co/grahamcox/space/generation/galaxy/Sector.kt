@@ -1,6 +1,6 @@
 package uk.co.grahamcox.space.generation.galaxy
 
-import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.generation.species.Species
 
 /**
  * Some details of a single sector in the galaxy

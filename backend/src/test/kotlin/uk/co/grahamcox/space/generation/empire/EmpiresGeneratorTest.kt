@@ -3,7 +3,7 @@ package uk.co.grahamcox.space.generation.empire
 import org.apache.commons.math3.random.Well19937c
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.generation.species.Species
 import uk.co.grahamcox.space.generation.starmap.StarMap
 
 @Disabled

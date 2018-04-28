@@ -3,7 +3,7 @@ package uk.co.grahamcox.space.generation.empire
 import org.apache.commons.math3.distribution.NormalDistribution
 import org.apache.commons.math3.random.RandomGenerator
 import org.slf4j.LoggerFactory
-import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.generation.species.Species
 import uk.co.grahamcox.space.species.SpeciesTraits
 
 /**

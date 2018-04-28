@@ -3,7 +3,6 @@ package uk.co.grahamcox.space.generation.species
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.math3.random.RandomGenerator
 import org.slf4j.LoggerFactory
-import uk.co.grahamcox.space.species.Species
 import uk.co.grahamcox.space.species.SpeciesTraits
 import uk.co.grahamcox.space.generation.markov.MarkovChainGenerator
 

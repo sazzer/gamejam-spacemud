@@ -1,4 +1,6 @@
-package uk.co.grahamcox.space.species
+package uk.co.grahamcox.space.generation.species
+
+import uk.co.grahamcox.space.species.SpeciesTraits
 
 /**
  * Details representing an entire Species

@@ -2,7 +2,7 @@ package uk.co.grahamcox.space.generation.galaxy
 
 import uk.co.grahamcox.space.galaxy.Coords
 import uk.co.grahamcox.space.generation.empire.Empire
-import uk.co.grahamcox.space.species.Species
+import uk.co.grahamcox.space.generation.species.Species
 import uk.co.grahamcox.space.generation.starmap.StarMap
 
 /**
