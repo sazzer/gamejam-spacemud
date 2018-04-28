@@ -12,6 +12,7 @@ import uk.co.grahamcox.space.generation.species.SpeciesGeneratorConfig
 import uk.co.grahamcox.space.generation.starmap.StarMapGeneratorConfig
 import uk.co.grahamcox.space.generation.markov.MarkovChainConfig
 import uk.co.grahamcox.space.home.HomeController
+import uk.co.grahamcox.space.species.SpeciesConfig
 import uk.co.grahamcox.space.users.UserConfig
 import uk.co.grahamcox.space.websocket.WebSocketConfig
 import java.time.Clock
@@ -32,7 +33,8 @@ import java.time.ZoneId
         SpeciesGeneratorConfig::class,
         EmpireGeneratorConfig::class,
         GalaxyGeneratorConfig::class,
-        GalaxyConfig::class
+        GalaxyConfig::class,
+        SpeciesConfig::class
 )
 class ApplicationConfig {
     /**
