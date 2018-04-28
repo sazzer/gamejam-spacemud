@@ -1,6 +1,8 @@
 package uk.co.grahamcox.space.generation
 
 import org.springframework.transaction.annotation.Transactional
+import uk.co.grahamcox.space.empire.EmpireData
+import uk.co.grahamcox.space.empire.dao.EmpireDao
 import uk.co.grahamcox.space.galaxy.Coords
 import uk.co.grahamcox.space.galaxy.GalaxyData
 import uk.co.grahamcox.space.galaxy.GalaxyId
@@ -19,7 +21,8 @@ import uk.co.grahamcox.space.species.dao.SpeciesDao
 open class GalaxyPersister(
         private val galaxyDao: GalaxyDao,
         private val speciesDao: SpeciesDao,
-        private val sectorDao: SectorDao
+        private val sectorDao: SectorDao,
+        private val empireDao: EmpireDao
 ) {
     /**
      * Persist the galaxy to the database
@@ -34,22 +37,39 @@ open class GalaxyPersister(
                 width = galaxy.width,
                 height = galaxy.height))
 
-        galaxy.species.map { species -> SpeciesData(
-                name = species.name,
-                traits = SpeciesTraits.values().map { trait -> trait to species.getTrait(trait) }
-                        .filter { it.second != 0 }
-                        .toMap(),
-                galaxyId = created.identity.id
-        )}.forEach { species -> speciesDao.create(species) }
+        val speciesIds = galaxy.species.map { species ->
+            val created = speciesDao.create(SpeciesData(
+                    name = species.name,
+                    traits = SpeciesTraits.values().map { trait -> trait to species.getTrait(trait) }
+                            .filter { it.second != 0 }
+                            .toMap(),
+                    galaxyId = created.identity.id
+            ))
+
+            species to created.identity.id
+        }.toMap()
 
         for (x in 0 until galaxy.width) {
             for (y in 0 until galaxy.height) {
-                sectorDao.create(SectorData(
+                val coords = Coords(x, y)
+                val sector = galaxy.getSector(coords)
+                val sectorRecord = sectorDao.create(SectorData(
                         galaxy = created.identity.id,
                         x = x,
                         y = y,
-                        stars = galaxy.starMap.getSector(Coords(x, y))
+                        stars = sector.totalCount
                 ))
+
+                sector.speciesCount.filterValues { it > 0 }
+                        .forEach { species, count ->
+                            val speciesId = speciesIds[species]!!
+
+                            empireDao.create(EmpireData(
+                                    species = speciesId,
+                                    sector = sectorRecord.identity.id,
+                                    stars = count
+                            ))
+                        }
             }
         }
         return created
