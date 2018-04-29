@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt
 
 /**
  * Helper to hash and compare passwords
- * @property saltRounds The number of log rounds for salt generation
+ * @property saltRounds The number of log rounds for salt empire
  */
 class PasswordHasher(private val saltRounds: Int) {
     /**

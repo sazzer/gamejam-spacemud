@@ -1,12 +1,8 @@
 package uk.co.grahamcox.space.users.rest
 
 import uk.co.grahamcox.space.authorization.AccessTokenGenerator
-import uk.co.grahamcox.space.authorization.rest.AccessTokenSerializer
 import uk.co.grahamcox.space.authorization.rest.AccessTokenTranslator
 import uk.co.grahamcox.space.model.Resource
-import uk.co.grahamcox.space.rest.hal.Link
-import uk.co.grahamcox.space.rest.hal.Meta
-import uk.co.grahamcox.space.rest.hal.buildUri
 import uk.co.grahamcox.space.users.UserData
 import uk.co.grahamcox.space.users.UserId
 

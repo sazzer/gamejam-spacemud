@@ -11,7 +11,7 @@ import uk.co.grahamcox.space.generation.markov.dao.MarkovChainDao
 import java.net.URI
 
 /**
- * Controller for working with Markov Chain generation
+ * Controller for working with Markov Chain empire
  */
 @RestController
 @RequestMapping(value = ["/api/generation/markovChains"], produces = ["application/hal+json"])

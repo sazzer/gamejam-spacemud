@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import uk.co.grahamcox.space.users.UserData
-import uk.co.grahamcox.space.users.dao.DuplicateUserException
 import uk.co.grahamcox.space.users.dao.UserDao
 import java.net.URI
 

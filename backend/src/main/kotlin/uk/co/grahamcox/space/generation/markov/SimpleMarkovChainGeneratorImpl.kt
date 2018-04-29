@@ -18,6 +18,7 @@ class SimpleMarkovChainGeneratorImpl(
     /** The set of word prefixes */
     private val prefixes: List<String>
 
+    /** The actual markov chain mappings */
     private val chains: Map<String, List<String>>
 
     init {
@@ -72,4 +73,24 @@ class SimpleMarkovChainGeneratorImpl(
         LOG.debug("Built name: {}", result)
         return result.toString()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as SimpleMarkovChainGeneratorImpl
+
+        if (prefixes != other.prefixes) return false
+        if (chains != other.chains) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = prefixes.hashCode()
+        result = 31 * result + chains.hashCode()
+        return result
+    }
+
+
 }
